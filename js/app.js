@@ -190,7 +190,7 @@ class AppManager {
      * Obtém dados mock para fallback
      */
     getMockServerData() {
-        const servers = ['ALFA', 'BETA', 'GAMA', 'DELTA', 'EPSILON', 'ZETA', 'ETA', 'THETA', 'IOTA', 'KAPPA', 'LAMBDA', 'MI', 'NU', 'XI'];
+        const servers = ['MOC ALFA', 'MOC BETA', 'MOC GAMA'];
         return servers.map(server => ({ Idhas: server, Horario: '01' }));
     }
 

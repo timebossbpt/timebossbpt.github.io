@@ -422,7 +422,7 @@ h1 {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-    min-width: 200px;
+    min-width: 100px;
     flex-shrink: 0;
 }
 
@@ -639,6 +639,115 @@ li:hover {
 .event-answers h3 {
     color: #4CAF50;
     margin-bottom: 10px;
+}
+
+/* ===== ESTILOS PARA IMAGENS DAS RELÍQUIAS ===== */
+.relics-images,
+.event-answers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+    padding: 0 10px;
+    overflow: visible; /* Mudado para visible para não cortar a imagem */
+}
+
+.relics-images img,
+.event-answers img {
+    max-width: 100%; /* Volta para 100% para usar todo espaço disponível */
+    max-height: 600px; /* Altura controlada */
+    width: auto; /* Largura automática baseada na proporção */
+    height: auto; /* Altura automática baseada na proporção */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    object-fit: contain; /* Mantém proporção sem distorcer */
+}
+
+/* Garantir altura mínima sem forçar cortes */
+.relics-images img {
+    min-height: 300px; /* Reduzido para evitar cortes */
+}
+
+.event-answers img {
+    min-height: 300px; /* Reduzido para evitar cortes */
+}
+
+/* ===== TAMANHO ESPECÍFICO PARA REMIX EM MONITORES GRANDES ===== */
+@media (min-width: 1200px) {
+    .relics-images img {
+        max-height: 800px; /* Muito maior para a Remix em monitores grandes */
+        min-height: 500px; /* Altura mínima maior para a Remix */
+        max-width: 80%; /* Controla largura para não ficar desproporcional */
+    }
+    
+    /* A imagem original mantém tamanho menor */
+    .event-answers img {
+        max-height: 500px; /* Tamanho menor para a original */
+        min-height: 300px;
+    }
+}
+
+/* Para monitores muito grandes (1440p, 4K, etc) */
+@media (min-width: 1440px) {
+    .relics-images img {
+        max-height: 1000px; /* GIGANTE para monitores 4K */
+        min-height: 700px; /* Altura mínima bem grande */
+        max-width: 90%; /* Mais largura disponível */
+    }
+    
+    .relics-images {
+        padding: 20px; /* Mais espaço ao redor */
+    }
+    
+    /* Hover zoom específico para a Remix em monitores grandes */
+    .relics-images img:hover {
+        transform: scale(1.1); /* Zoom adicional no hover */
+        cursor: zoom-in;
+    }
+}
+
+.relics-images img:hover,
+.event-answers img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* Responsividade para imagens das relíquias */
+@media (max-width: 768px) {
+    .relics-images,
+    .event-answers {
+        padding: 0 15px;
+    }
+    
+    .relics-images img,
+    .event-answers img {
+        max-height: 450px; /* Altura controlada para tablet */
+        max-width: 100%; /* Largura automática */
+        width: auto;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .relics-images,
+    .event-answers {
+        padding: 0 10px;
+    }
+    
+    .relics-images img,
+    .event-answers img {
+        max-height: 350px; /* Altura controlada para mobile */
+        max-width: 100%; /* Largura automática */
+        width: auto;
+        height: auto;
+    }
+    
+    /* Remover hover em mobile para melhor performance */
+    .relics-images img:hover,
+    .event-answers img:hover {
+        transform: none;
+    }
 }
 
 .answer-item {
@@ -1370,3 +1479,389 @@ li:hover {
         width: 400px;
     }
 } 
+/* ===== LAYOUT PRINCIPAL COM SIDEBARS ===== */
+.main-layout {
+    display: flex;
+    gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0; /* Permite que o conteúdo principal encolha */
+}
+
+/* ===== SIDEBARS ===== */
+.left-sidebar,
+.right-sidebar {
+    width: 160px;
+    flex-shrink: 0;
+}
+
+.sidebar-content {
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaço discreto entre os anúncios */
+}
+
+/* ===== CONTAINERS DE ANÚNCIOS ===== */
+.adsense-container {
+    margin: 0;
+    text-align: center;
+}
+
+.sidebar-ad {
+    width: 160px;
+    min-height: 200px; /* Altura discreta */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.bottom-ad {
+    width: 100%;
+    max-width: 728px;
+    margin: 20px auto;
+    min-height: 90px;
+}
+
+.ad-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 1200px) {
+    .left-sidebar,
+    .right-sidebar {
+        width: 140px;
+    }
+    
+    .sidebar-ad {
+        width: 140px;
+        min-height: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+        padding: 0 10px;
+    }
+    
+    .left-sidebar,
+    .right-sidebar {
+        width: 100%;
+        order: 3; /* Mover anúncios para o final */
+    }
+    
+    /* Combinar as duas sidebars em uma única linha */
+    .left-sidebar {
+        margin-bottom: 0;
+    }
+    
+    .right-sidebar {
+        margin-top: 0;
+    }
+    
+    .main-content {
+        order: 1;
+    }
+    
+    .sidebar-content {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 10px;
+        padding: 10px 0;
+        justify-content: center;
+    }
+    
+    .sidebar-ad {
+        width: calc(25% - 8px); /* Quatro anúncios por linha quando combinados */
+        min-height: 180px;
+        flex-shrink: 0;
+        min-width: 120px; /* Largura mínima para caber 4 anúncios */
+    }
+    
+    .bottom-ad {
+        min-height: 50px;
+    }
+    
+    /* Melhorias na navegação mobile */
+    .nav-tabs {
+        flex-wrap: wrap;
+        gap: 2px;
+        border-bottom: none;
+    }
+    
+    .nav-tab {
+        flex: 1 1 calc(50% - 1px); /* Duas abas por linha */
+        font-size: 0.85em;
+        padding: 12px 6px;
+        text-align: center;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-right: 0;
+        margin-bottom: 2px;
+        border-radius: 6px;
+    }
+    
+    .nav-tab:nth-child(odd) {
+        margin-right: 2px;
+    }
+    
+    .nav-tab:last-child {
+        flex: 1 1 100%; /* Última aba ocupa linha inteira */
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar-ad {
+        width: 100%; /* Um anúncio por linha no mobile */
+        min-height: 200px;
+        max-width: 320px;
+        margin: 0 auto;
+    }
+    
+    .sidebar-content {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    /* Navegação ainda mais compacta */
+    .nav-tab {
+        font-size: 0.8em;
+        padding: 10px 4px;
+        flex: 1 1 calc(50% - 1px);
+    }
+    
+    .nav-tab:nth-child(odd) {
+        margin-right: 2px;
+    }
+    
+    .nav-tab:last-child {
+        flex: 1 1 100%;
+        font-size: 0.8em; /* Mesmo tamanho das outras */
+    }
+    
+    /* Melhorar espaçamento geral mobile */
+    .container {
+        padding: 0 10px;
+    }
+    
+    body {
+        padding: 10px;
+    }
+    
+    .nav-container {
+        margin-bottom: 15px;
+    }
+}
+
+/* ===== CONTAINERS DE ANÚNCIOS ===== */
+.adsense-container {
+    margin: 0;
+    text-align: center;
+}
+
+.bottom-ad {
+    width: 100%;
+    max-width: 728px;
+    margin: 20px auto;
+    min-height: 90px;
+}
+
+.ad-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* ===== ESTILOS PARA ANÚNCIOS REAIS ===== */
+.adsense-container ins {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.adsense-container iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== CLASSES PARA PLACEHOLDERS DOS ANÚNCIOS ===== */
+.ad-placeholder-sidebar {
+    background: var(--bg-tertiary);
+    border: 2px dashed var(--border-color);
+    padding: 8px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.7em;
+    border-radius: 4px;
+}
+
+.ad-placeholder-banner {
+    background: var(--bg-tertiary);
+    border: 2px dashed var(--border-color);
+    padding: 20px;
+    text-align: center;
+    color: var(--text-secondary);
+    margin: 20px 0;
+    border-radius: 8px;
+}
+
+.ad-placeholder-mobile {
+    background: var(--bg-tertiary);
+    border: 2px dashed var(--border-color);
+    padding: 15px;
+    text-align: center;
+    color: var(--text-secondary);
+    border-radius: 8px;
+}
+
+/* ===== CLASSES PARA OUTROS ELEMENTOS ===== */
+.future-updates-card {
+    border: 2px dashed #4CAF50;
+    background-color: #1a2a1a;
+}
+
+.future-item {
+    background-color: #2a2a2a;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    border-left: 3px solid #FFD700;
+}
+
+/* ===== SEÇÃO DE ANÚNCIOS MOBILE ===== */
+.mobile-ads-section {
+    display: none; /* Oculto por padrão */
+    background: var(--bg-secondary);
+    border-top: 2px solid var(--border-color);
+    margin-top: 30px;
+    padding: 20px 0;
+}
+
+.mobile-ads-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 15px;
+    text-align: center;
+}
+
+.mobile-ads-container h3 {
+    color: var(--text-accent);
+    margin-bottom: 20px;
+    font-size: 1.2em;
+}
+
+.mobile-banner-ad {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.mobile-banner-ad .ad-placeholder {
+    min-height: 100px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+}
+
+.mobile-ads-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.mobile-square-ad .ad-placeholder {
+    min-height: 200px;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+}
+
+/* Mostrar anúncios mobile apenas em telas pequenas */
+@media (max-width: 768px) {
+    .mobile-ads-section {
+        display: block;
+    }
+    
+    /* Permitir que sidebars sejam exibidas em mobile junto com mobile-ads-section */
+}
+
+@media (max-width: 480px) {
+    .sidebar-ad {
+        width: calc(50% - 5px); /* Dois anúncios por linha em mobile pequeno */
+        min-height: 160px;
+        min-width: 140px;
+    }
+    
+    .sidebar-content {
+        gap: 8px;
+        padding: 8px 0;
+        flex-wrap: wrap; /* Permite quebra de linha em telas muito pequenas */
+    }
+    
+    /* Mobile ads grid */
+    .mobile-ads-grid {
+        grid-template-columns: 1fr; /* Uma coluna no mobile pequeno */
+        gap: 10px;
+    }
+    
+    .mobile-square-ad .ad-placeholder {
+        min-height: 250px;
+    }
+    
+    .mobile-banner-ad .ad-placeholder {
+        min-height: 80px;
+    }
+}
+
+/* ===== MELHORIAS NO CONTAINER PRINCIPAL ===== */
+.container {
+    max-width: 100%;
+    margin: 0;
+    position: relative;
+}
+
+/* ===== AJUSTES PARA O TIMER SECTION ===== */
+.timer-section {
+    position: relative;
+    z-index: 10;
+}
+
+/* ===== AJUSTES PARA MODAIS ===== */
+.help-modal-overlay {
+    z-index: 10000;
+}
+
+/* ===== AJUSTES PARA CONTROLES ===== */
+.theme-controls {
+    z-index: 1000;
+}
+
+/* ===== AJUSTES PARA WHATSAPP FLOAT ===== */
+.whatsapp-float {
+    z-index: 999;
+}
+
