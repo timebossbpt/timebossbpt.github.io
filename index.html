@@ -20,14 +20,13 @@
     <link rel="icon" type="image/png" sizes="16x16" href="img/bosses/miniaturas/mini_kelvezu.webp">
     <!-- <link rel="manifest" href="/manifest.json"> --> <!-- Desabilitado para desenvolvimento local -->
     <link rel="mask-icon" href="img/bosses/miniaturas/mini_yagditha.webp" color="#4CAF50">
+    
+    <!-- Google AdSense -->
+    <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/styles.css">
-    <meta name="google-adsense-account" content="ca-pub-8290904420638026">
-
-
-
-
-
+    <link rel="stylesheet" href="css/styles.css?v=1757449686">
 </head>
 <body>
 
@@ -53,285 +52,359 @@
         </div>
         <div class="profile-actions">
             <button onclick="testNotification()" class="action-btn">🔔 Testar Notificação</button>
-            <button onclick="exportProfile()" class="action-btn">📤 Exportar Configurações</button>
-            <button onclick="importProfile()" class="action-btn">📥 Importar Configurações</button>
+            <button onclick="exportProfile()" class="action-btn">�� Exportar Configurações</button>
+            <button onclick="importProfile()" class="action-btn">�� Importar Configurações</button>
             <button onclick="clearProfile()" class="action-btn danger">🗑️ Limpar Dados</button>
         </div>
         <button class="close-panel" onclick="toggleProfilePanel()">❌</button>
     </div>
 </div>
 
-<div class="container">
-    <h1>Portal de Informações Priston Tale</h1>
-    <p id="current-time"></p>
-    
-    <!-- PWA Install Banner -->
-    <div class="pwa-install-banner" id="pwa-banner" style="display: none;">
-        <div class="pwa-content">
-            <div class="pwa-icon">📱</div>
-            <div class="pwa-text">
-                <strong>Instalar App</strong>
-                <p>Adicione o Portal PT à sua tela inicial para acesso rápido!</p>
-            </div>
-            <button class="pwa-install-btn" id="pwa-install-btn">Instalar</button>
-            <button class="pwa-dismiss-btn" onclick="dismissPWABanner()">✕</button>
-        </div>
-    </div>
-
-    <!-- Navigation Menu -->
-    <div class="nav-container">
-        <div class="nav-tabs">
-            <button class="nav-tab active" data-tab="bosses" onclick="switchTab('bosses')">🐉 Bosses</button>
-            <button class="nav-tab" data-tab="events" onclick="switchTab('events')">🎯 Eventos</button>
-            <button class="nav-tab" data-tab="relics" onclick="switchTab('relics')">💎 Relíquia</button>
-            <button class="nav-tab" data-tab="sort" onclick="switchTab('sort')">🍀 Sorteio</button>
-            <!-- <button class="nav-tab" onclick="switchTab('agecalc')">📈 Age Calc</button>  -->
-            <button class="nav-tab" data-tab="attwill" onclick="switchTab('attwill')">Atualizações Futuras</button>
-        </div>
-    </div>
-
-    <!-- Bosses Tab Content -->
-    <div id="bosses-content" class="tab-content active">
-        <div class="controls-container">
-            <div class="controls">
-                <div class="control-group">
-                    <label for="filter-select">Filtro de Item:</label>
-                    <select id="filter-select">
-                        <option value="all">Todos os Itens</option>
-                        <option value="Receita de Relíquias">Receita de Relíquias</option>
-                        <option value="Anel do Valento">Anel do Valento</option>
-                        <option value="Colar do Kelvezu">Colar do Kelvezu</option>
-                        <option value="Botas do Mokova">Botas do Mokova</option>
-                        <option value="Anel Shy">Anel Shy</option>
-                        <option value="Amuleto Tulla">Amuleto Tulla</option>
-                        <option value="Botas do Draxos">Botas do Draxos</option>
-                        <option value="Luvas do Greedy">Luvas do Greedy</option>
-                        <option value="Amuleto do Yagditha">Amuleto do Yagditha</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label for="time-filter-select">Filtro por Horário:</label>
-                    <select id="time-filter-select">
-                        <option value="all">Todos os Horários</option>
-                    </select>
-                </div>
-                <div class="control-group">
-                    <label for="sort-select">Ordenação:</label>
-                    <select id="sort-select">
-                        <option value="next-spawn">Horário de Próxima Aparição</option>
-                        <option value="Receita de Relíquias">Receita de Relíquias</option>
-                        <option value="Anel do Valento">Anel do Valento</option>
-                        <option value="Colar do Kelvezu">Colar do Kelvezu</option>
-                        <option value="Botas do Mokova">Botas do Mokova</option>
-                        <option value="Anel Shy">Anel Shy</option>
-                        <option value="Amuleto Tulla">Amuleto Tulla</option>
-                        <option value="Botas do Draxos">Botas do Draxos</option>
-                        <option value="Luvas do Greedy">Luvas do Greedy</option>
-                        <option value="Amuleto do Yagditha">Amuleto do Yagditha</option>
-                    </select>
-                </div>
-            </div>
-            <div class="server-column">
-                <div class="server-name">IDHAS</div>
-                <div class="subservers-container" id="subservers-container">
-                </div>
-            </div>
-        </div>
-        
-        <div id="bosses-container"></div>
-    </div>
-
-    <!-- Fixed Timer Section (only visible on large screens) -->
-    <div class="timer-section" id="timer-section">
-        <div class="timer-controls">
-            <button class="timer-toggle" id="pin-toggle" onclick="toggleScrollFade()" title="Fixar/Desfixar">📌</button>
-            <button class="settings-toggle" onclick="toggleSettings()" title="Configurações">⚙️</button>
-            <button class="settings-toggle" onclick="showHelpModal()" title="Ajuda - O que cada controle faz">❓</button>
-        </div>
-        <h3>⏰ Próximo Boss</h3>
-        <div class="next-boss-info" id="next-boss-info">
-            <div class="next-boss-name" id="next-boss-name">Carregando...</div>
-            <div class="next-boss-location" id="next-boss-location">📍 Carregando...</div>
-            <div class="countdown-timer" id="countdown-timer">--:--:--</div>
-        </div>
-        
-        <div class="notification-controls" id="notification-controls">
-            <h4>🔔 Notificações</h4>
-            <div class="sound-control">
-                <label>Som:</label>
-                <button class="sound-toggle-btn" id="sound-toggle" onclick="toggleSound()">🔇 OFF</button>
-            </div>
-            <div class="sound-control">
-                <label>Tipo:</label>
-                <select class="sound-select" id="sound-type-select" onchange="changeSoundType()">
-                    <option value="beep">🎵 Beep</option>
-                    <option value="chime">🔔 Chime</option>
-                    <option value="alert">🚨 Alert</option>
-                    <option value="bell">🔔 Bell</option>
-                    <option value="horn">📯 Horn</option>
-                    <option value="whistle">🎺 Whistle</option>
-                </select>
-            </div>
-            <div class="sound-control">
-                <label>Aviso:</label>
-                <button class="sound-toggle-btn" id="early-warning-toggle" onclick="toggleEarlyWarning()">⚠️ OFF</button>
-            </div>
-            <div class="sound-control">
-                <label>Vol:</label>
-                <div class="volume-control">
-                    <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="50" onchange="updateVolume()">
-                    <span class="volume-display" id="volume-display">50%</span>
-                </div>
-            </div>
-            <div class="sound-control">
-                <label>Notif:</label>
-                <button class="sound-toggle-btn" id="notification-toggle" onclick="toggleNotifications()">🔔 OFF</button>
-            </div>
-                <div class="sound-control">
-                    <label>Notificar apenas bosses favoritos:</label>
-                    <input type="checkbox" id="notify-favorites-toggle" onchange="toggleNotifyOnlyFavorites()">
-            </div>
-        </div>
-    </div>
-
-    <!-- Events Tab Content -->
-    <div id="events-content" class="tab-content">
-        <div class="event-card">
-            <div class="event-header">
-                <img src="img/bosses/maps/vale-tranquilo.png" alt="Cientista Marie - Vale Tranquilo" class="event-spawn-img">
-                <div>
-                    <h2>Cientista Marie</h2>
-                    <p style="color: #90ee90; font-size: 1.1em; margin: 5px 0;">📍 Vale Tranquilo i6 (Cachoeira)</p>
+<!-- Layout Principal com Sidebars -->
+<div class="main-layout">
+    <!-- Sidebar Esquerda - AdSense -->
+    <aside class="left-sidebar">
+        <div class="sidebar-content">
+            <!-- Anúncio 1 -->
+            <div class="adsense-container sidebar-ad">
+                <div class="ad-placeholder">
+                    <!-- Aqui vai seu código do AdSense -->
+                    <div class="ad-placeholder-sidebar">
+                        <p>📢 AdSense 1</p>
+                        <p>160x600</p>
+                    </div>
                 </div>
             </div>
             
-            <div class="event-info">
-                <div class="event-answers">
-                    <h3>✅ Respostas (Nessa ordem):</h3>
-                    <div class="answer-item">1° - Pedra Idetas</div>
-                    <div class="answer-item">2° - Gold</div>
-                    <div class="answer-item">3° - Mago</div>
-                    <div class="answer-item">4° - Tônico Capilar</div>
-                </div>
-                
-                <div class="event-location">
-                    <h4>📋 Informações Importantes:</h4>
-                    <div class="location-info">
-                        • A recompensa irá para o seu distribuidor, abra a recompensa e você ganhará outra recompensa.
-                    </div>
-                    <div class="location-info">
-                        • Para trocar a engrenagem e a prece, vá até o quadrante D5 (Rind Violenta), na cidade de Pillai (qualquer sub-servidor).
-                    </div>
-                    <div class="frequency-info">
-                        🕐 Frequência: 1 vez ao dia
+            <!-- Anúncio 2 -->
+            <div class="adsense-container sidebar-ad">
+                <div class="ad-placeholder">
+                    <!-- Aqui vai seu código do AdSense -->
+                    <div class="ad-placeholder-sidebar">
+                        <p>📢 AdSense 2</p>
+                        <p>300x250</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </aside>
 
-    <!-- Relics Tab Content -->
-    <div id="relics-content" class="tab-content">
-        <div class="event-card">
-            <div class="event-header">
-                    <h2>Relíquia</h2>
-                    <p style="color: #90ee90; font-size: 1.1em; margin: 5px 0;">📍Pillai(G-7) verificar suas relíquias</p>
-                
-            </div>
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <div class="container">
+            <h1>Portal de Informações Priston Tale</h1>
+            <p id="current-time"></p>
             
-            <div class="event-info">
-                <div class="relics-images" style="display: flex; justify-content: center;  align-items: center;">
-                    <img src="img/reliquia/remix.jpg" alt="Reliquias" >
-                </div>
-                    <h3 style="display: flex; justify-content: center;  align-items: center;">🔄 Versão de como é dentro do Jogo</h3> 
-                 <div class="event-answers" style="display: flex; justify-content: center;  align-items: center;">  <img src="img/reliquia/original.jpg" alt="Reliquias" ></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Road Map Tab Content -->
-    <div id="attwill-content" class="tab-content">
-        <div class="sort-card" style="border: 2px dashed #4CAF50; background-color: #1a2a1a;">
-            <div style="text-align: center; padding: 20px; color: #4CAF50;">
-                <h3>🚀 Em Desenvolvimento</h3>
-                <p style="color: #90ee90; margin-bottom: 15px;">Próximas funcionalidades que serão implementadas:</p>
-                <div style="text-align: left; max-width: 500px; margin: 0 auto;">
-                    <div style="background-color: #2a2a2a; padding: 10px; margin: 5px 0; border-radius: 5px; border-left: 3px solid #FFD700;">
-                        📤 <strong>Compartilhamento:</strong> Compartilhe horários específicos com amigos
+            <!-- PWA Install Banner -->
+            <div class="pwa-install-banner" id="pwa-banner" style="display: none;">
+                <div class="pwa-content">
+                    <div class="pwa-icon">📱</div>
+                    <div class="pwa-text">
+                        <strong>Instalar App</strong>
+                        <p>Adicione o Portal PT à sua tela inicial para acesso rápido!</p>
                     </div>
-                    <div style="background-color: #2a2a2a; padding: 10px; margin: 5px 0; border-radius: 5px; border-left: 3px solid #FFD700;">
-                        📤 <strong>Age Calc:</strong> é uma calculadora de "aging" que permite aos jogadores prever o resultado de aumentar os atributos de um item ("Aging") ou calcular os atributos originais de um item com "aging" para verificar se é "perfeito". Essas ferramentas são úteis para simular os efeitos do processo de "Aging" em armas e armaduras, levando em conta os diferentes status como defesa, ataque, crítico, e bloqueio, com a possibilidade de incluir a função "Despertado".  
-                    </div>
+                    <button class="pwa-install-btn" id="pwa-install-btn">Instalar</button>
+                    <button class="pwa-dismiss-btn" onclick="dismissPWABanner()">✕</button>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Sort Tab Content -->
-    <div id="sort-content" class="tab-content">
-        <div class="sort-card">
-            <div class="sort-info">
-                <div class="sort-card">
-                    <div class="lottery-container">
-                        <form class="lottery-form" id="lottery-form">
-                            <div class="lottery-text">
-                                Sortear 
-                                <input type="number" id="quantity" min="1" max="100" value="1" class="lottery-input">
-                                número
-                                <div class="range-section">
-                                    entre 
-                                    <input type="number" id="min-range" min="0" max="999999" value="1" class="lottery-input range-input">
-                                    e 
-                                    <input type="number" id="max-range" min="1" max="999999" value="100" class="lottery-input range-input">
-                                </div>
+            <!-- Navigation Menu -->
+            <div class="nav-container">
+                <div class="nav-tabs">
+                    <button class="nav-tab active" data-tab="bosses" onclick="switchTab('bosses')">🐉 Bosses</button>
+                    <button class="nav-tab" data-tab="events" onclick="switchTab('events')">🎯 Eventos</button>
+                    <button class="nav-tab" data-tab="relics" onclick="switchTab('relics')">💎 Relíquia</button>
+                    <button class="nav-tab" data-tab="sort" onclick="switchTab('sort')">🍀 Sorteio</button>
+                    <!-- <button class="nav-tab" onclick="switchTab('agecalc')">📈 Age Calc</button>  -->
+                    <button class="nav-tab" data-tab="attwill" onclick="switchTab('attwill')">🔮 Futuro</button>
+                </div>
+            </div>
+
+            <!-- Bosses Tab Content -->
+            <div id="bosses-content" class="tab-content active">
+                <div class="controls-container">
+                    <div class="controls">
+                        <div class="control-group">
+                            <label for="filter-select">Filtro de Item:</label>
+                            <select id="filter-select">
+                                <option value="all">Todos os Itens</option>
+                                <option value="Receita de Relíquias">Receita de Relíquias</option>
+                                <option value="Anel do Valento">Anel do Valento</option>
+                                <option value="Colar do Kelvezu">Colar do Kelvezu</option>
+                                <option value="Botas do Mokova">Botas do Mokova</option>
+                                <option value="Anel Shy">Anel Shy</option>
+                                <option value="Amuleto Tulla">Amuleto Tulla</option>
+                                <option value="Botas do Draxos">Botas do Draxos</option>
+                                <option value="Luvas do Greedy">Luvas do Greedy</option>
+                                <option value="Amuleto do Yagditha">Amuleto do Yagditha</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="time-filter-select">Filtro por Horário:</label>
+                            <select id="time-filter-select">
+                                <option value="all">Todos os Horários</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="sort-select">Ordenação:</label>
+                            <select id="sort-select">
+                                <option value="next-spawn">Horário de Próxima Aparição</option>
+                                <option value="Receita de Relíquias">Receita de Relíquias</option>
+                                <option value="Anel do Valento">Anel do Valento</option>
+                                <option value="Colar do Kelvezu">Colar do Kelvezu</option>
+                                <option value="Botas do Mokova">Botas do Mokova</option>
+                                <option value="Anel Shy">Anel Shy</option>
+                                <option value="Amuleto Tulla">Amuleto Tulla</option>
+                                <option value="Botas do Draxos">Botas do Draxos</option>
+                                <option value="Luvas do Greedy">Luvas do Greedy</option>
+                                <option value="Amuleto do Yagditha">Amuleto do Yagditha</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="server-column">
+                        <div class="server-name">IDHAS</div>
+                        <div class="subservers-container" id="subservers-container">
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="bosses-container"></div>
+            </div>
+
+            <!-- Fixed Timer Section (only visible on large screens) -->
+            <div class="timer-section" id="timer-section">
+                <div class="timer-controls">
+                    <button class="timer-toggle" id="pin-toggle" onclick="toggleScrollFade()" title="Fixar/Desfixar">📌</button>
+                    <button class="settings-toggle" onclick="toggleSettings()" title="Configurações">⚙️</button>
+                    <button class="settings-toggle" onclick="showHelpModal()" title="Ajuda - O que cada controle faz">❓</button>
+                </div>
+                <h3>⏰ Próximo Boss</h3>
+                <div class="next-boss-info" id="next-boss-info">
+                    <div class="next-boss-name" id="next-boss-name">Carregando...</div>
+                    <div class="next-boss-location" id="next-boss-location">📍 Carregando...</div>
+                    <div class="countdown-timer" id="countdown-timer">--:--:--</div>
+                </div>
+                
+                <div class="notification-controls" id="notification-controls">
+                    <h4>🔔 Notificações</h4>
+                    <div class="sound-control">
+                        <label>Som:</label>
+                        <button class="sound-toggle-btn" id="sound-toggle" onclick="toggleSound()">🔇 OFF</button>
+                    </div>
+                    <div class="sound-control">
+                        <label>Tipo:</label>
+                        <select class="sound-select" id="sound-type-select" onchange="changeSoundType()">
+                            <option value="beep">🎵 Beep</option>
+                            <option value="chime">🔔 Chime</option>
+                            <option value="alert">🚨 Alert</option>
+                            <option value="bell">🔔 Bell</option>
+                            <option value="horn">📯 Horn</option>
+                            <option value="whistle">�� Whistle</option>
+                        </select>
+                    </div>
+                    <div class="sound-control">
+                        <label>Aviso:</label>
+                        <button class="sound-toggle-btn" id="early-warning-toggle" onclick="toggleEarlyWarning()">⚠️ OFF</button>
+                    </div>
+                    <div class="sound-control">
+                        <label>Vol:</label>
+                        <div class="volume-control">
+                            <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="50" onchange="updateVolume()">
+                            <span class="volume-display" id="volume-display">50%</span>
+                        </div>
+                    </div>
+                    <div class="sound-control">
+                        <label>Notif:</label>
+                        <button class="sound-toggle-btn" id="notification-toggle" onclick="toggleNotifications()">🔔 OFF</button>
+                    </div>
+                        <div class="sound-control">
+                            <label>Notificar apenas bosses favoritos:</label>
+                            <input type="checkbox" id="notify-favorites-toggle" onchange="toggleNotifyOnlyFavorites()">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Events Tab Content -->
+            <div id="events-content" class="tab-content">
+                <div class="event-card">
+                    <div class="event-header">
+                        <img src="img/bosses/maps/vale-tranquilo.png" alt="Cientista Marie - Vale Tranquilo" class="event-spawn-img">
+                        <div>
+                            <h2>Cientista Marie</h2>
+                            <p style="color: #90ee90; font-size: 1.1em; margin: 5px 0;">📍 Vale Tranquilo i6 (Cachoeira)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="event-info">
+                        <div class="event-answers">
+                            <h3>✅ Respostas (Nessa ordem):</h3>
+                            <div class="answer-item">1° - Pedra Idetas</div>
+                            <div class="answer-item">2° - Gold</div>
+                            <div class="answer-item">3° - Mago</div>
+                            <div class="answer-item">4° - Tônico Capilar</div>
+                        </div>
+                        
+                        <div class="event-location">
+                            <h4>📋 Informações Importantes:</h4>
+                            <div class="location-info">
+                                • A recompensa irá para o seu distribuidor, abra a recompensa e você ganhará outra recompensa.
                             </div>
-
-                            <div class="options-section">
-                                <button type="button" class="options-toggle" onclick="toggleLotteryOptions()">
-                                    <span>Opções do Sorteio</span>
-                                    <span class="arrow">▼</span>
-                                </button>
-                                
-                                <div class="options-content" id="lottery-options" style="display: none;">
-                                    <label class="option-item">
-                                        <input type="checkbox" id="allow-repeats" checked>
-                                        Permitir números repetidos
-                                    </label>
-                                    <label class="option-item">
-                                        <input type="checkbox" id="sort-results">
-                                        Ordenar resultados
-                                    </label>
-                                </div>
+                            <div class="location-info">
+                                • Para trocar a engrenagem e a prece, vá até o quadrante D5 (Rind Violenta), na cidade de Pillai (qualquer sub-servidor).
                             </div>
-
-                            <button type="submit" class="lottery-button">
-                                SORTEAR AGORA!
-                            </button>
-                        </form>
-
-                        <div class="lottery-results" id="lottery-results" style="display: none;">
-                            <h3>Resultado do Sorteio</h3>
-                            <div class="results-display" id="results-display"></div>
-                            <div class="results-actions">
-                                <button type="button" onclick="copyResults()">Copiar</button>
-                                <button type="button" onclick="newDraw()">Novo Sorteio</button>
-                            </div>
-                            <div class="draw-info">
-                                <small>Sorteado em: <span id="draw-time"></span></small>
+                            <div class="frequency-info">
+                                🕐 Frequência: 1 vez ao dia
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Placeholder for future social features -->
-        
-    </div>    
 
-    <a href="https://wa.me/55067996456868" class="whatsapp-float" target="_blank" aria-label="Fale no WhatsApp">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
-    </a>
+            <!-- Relics Tab Content -->
+            <div id="relics-content" class="tab-content">
+                <div class="event-card">
+                    <div class="event-header">
+                            <h2>Relíquia</h2>
+                            <p style="color: #90ee90; font-size: 1.1em; margin: 5px 0;">📍Pillai(G-7) verificar suas relíquias</p>
+                        
+                    </div>
+                    
+                    <div class="event-info">
+                        <div class="relics-images">
+                            <img src="img/reliquia/remix.jpg" alt="Relíquia Remix" >
+                        </div>
+                        <h3 style="text-align: center; color: var(--text-accent);">🔄 Versão de como é dentro do Jogo</h3> 
+                        <div class="event-answers">
+                            <img src="img/reliquia/original.jpg" alt="Relíquia Original" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Road Map Tab Content -->
+            <div id="attwill-content" class="tab-content">
+                <div class="sort-card future-updates-card">
+                    <div style="text-align: center; padding: 20px; color: #4CAF50;">
+                        <h3>🚀 Em Desenvolvimento</h3>
+                        <p style="color: #90ee90; margin-bottom: 15px;">Próximas funcionalidades que serão implementadas:</p>
+                        <div style="text-align: left; max-width: 500px; margin: 0 auto;">
+                            <div class="future-item">
+                                📤 <strong>Compartilhamento:</strong> Compartilhe horários específicos com amigos
+                            </div>
+                            <div class="future-item">
+                                📤 <strong>Age Calc:</strong> é uma calculadora de "aging" que permite aos jogadores prever o resultado de aumentar os atributos de um item ("Aging") ou calcular os atributos originais de um item com "aging" para verificar se é "perfeito". Essas ferramentas são úteis para simular os efeitos do processo de "Aging" em armas e armaduras, levando em conta os diferentes status como defesa, ataque, crítico, e bloqueio, com a possibilidade de incluir a função "Despertado".  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sort Tab Content -->
+            <div id="sort-content" class="tab-content">
+                <div class="sort-card">
+                    <div class="sort-info">
+                        <div class="sort-card">
+                            <div class="lottery-container">
+                                <form class="lottery-form" id="lottery-form">
+                                    <div class="lottery-text">
+                                        Sortear 
+                                        <input type="number" id="quantity" min="1" max="100" value="1" class="lottery-input">
+                                        número
+                                        <div class="range-section">
+                                            entre 
+                                            <input type="number" id="min-range" min="0" max="999999" value="1" class="lottery-input range-input">
+                                            e 
+                                            <input type="number" id="max-range" min="1" max="999999" value="100" class="lottery-input range-input">
+                                        </div>
+                                    </div>
+
+                                    <div class="options-section">
+                                        <button type="button" class="options-toggle" onclick="toggleLotteryOptions()">
+                                            <span>Opções do Sorteio</span>
+                                            <span class="arrow">▼</span>
+                                        </button>
+                                        
+                                        <div class="options-content" id="lottery-options" style="display: none;">
+                                            <label class="option-item">
+                                                <input type="checkbox" id="allow-repeats" checked>
+                                                Permitir números repetidos
+                                            </label>
+                                            <label class="option-item">
+                                                <input type="checkbox" id="sort-results">
+                                                Ordenar resultados
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" class="lottery-button">
+                                        SORTEAR AGORA!
+                                    </button>
+                                </form>
+
+                                <div class="lottery-results" id="lottery-results" style="display: none;">
+                                    <h3>Resultado do Sorteio</h3>
+                                    <div class="results-display" id="results-display"></div>
+                                    <div class="results-actions">
+                                        <button type="button" onclick="copyResults()">Copiar</button>
+                                        <button type="button" onclick="newDraw()">Novo Sorteio</button>
+                                    </div>
+                                    <div class="draw-info">
+                                        <small>Sorteado em: <span id="draw-time"></span></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Placeholder for future social features -->
+                
+            </div>    
+
+            <!-- AdSense Banner Final -->
+            <div class="adsense-container bottom-ad">
+                <div class="ad-placeholder">
+                    <!-- Aqui vai seu código do AdSense -->
+                    <div class="ad-placeholder-banner">
+                        <p>📢 AdSense Banner</p>
+                        <p style="font-size: 0.8em;">Espaço para anúncio horizontal</p>
+                        <p style="font-size: 0.7em;">728x90 ou 320x50 (mobile)</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://wa.me/55067996456868" class="whatsapp-float" target="_blank" aria-label="Fale no WhatsApp">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+            </a>
+        </div>
+    </main>
+
+    <!-- Sidebar Direita - AdSense -->
+    <aside class="right-sidebar">
+        <div class="sidebar-content">
+            <!-- Anúncio 3 -->
+            <div class="adsense-container sidebar-ad">
+                <div class="ad-placeholder">
+                    <!-- Aqui vai seu código do AdSense -->
+                    <div class="ad-placeholder-sidebar">
+                        <p>📢 AdSense 3</p>
+                        <p>300x250</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Anúncio 4 -->
+            <div class="adsense-container sidebar-ad">
+                <div class="ad-placeholder">
+                    <!-- Aqui vai seu código do AdSense -->
+                    <div class="ad-placeholder-sidebar">
+                        <p>📢 AdSense 4</p>
+                        <p>160x600</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </aside>
 </div>
 
 <!-- Help Modal -->
@@ -401,7 +474,7 @@
                 <span class="help-timeline-icon">🐉</span>
                 <div>
                     <strong>Boss nasce</strong> (se "Som" = ON)<br>
-                    🔊 Som: Alert + 🔔 Notificação visual (se "Notif" = ON e dentro das regras de favoritos)<br>
+                    �� Som: Alert + 🔔 Notificação visual (se "Notif" = ON e dentro das regras de favoritos)<br>
                 </div>
             </div>
         </div>
@@ -421,5 +494,47 @@
 <!-- Scripts -->
 <script type="module" src="js/main.js"></script>
 
+
+<script>
+// Força o posicionamento do timer-section
+document.addEventListener('DOMContentLoaded', function() {
+    const timerSection = document.getElementById('timer-section');
+    if (timerSection) {
+        // Força o posicionamento via JavaScript
+        timerSection.style.position = 'fixed';
+        timerSection.style.top = '20px';
+        timerSection.style.right = '20px';
+        timerSection.style.zIndex = '1000';
+        timerSection.style.width = '200px';
+        timerSection.style.backgroundColor = 'rgba(30, 30, 30, 0.95)';
+        timerSection.style.border = '2px solid #4CAF50';
+        timerSection.style.borderRadius = '8px';
+        timerSection.style.padding = '15px';
+        timerSection.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.2)';
+        timerSection.style.backdropFilter = 'blur(5px)';
+        timerSection.style.transform = 'scale(0.85)';
+        timerSection.style.opacity = '0.4';
+        timerSection.style.transition = 'all 0.3s ease';
+        
+        console.log('✅ Timer-section posicionado via JavaScript!');
+        
+        // Adiciona hover effect
+        timerSection.addEventListener('mouseenter', function() {
+            this.style.opacity = '1';
+            this.style.transform = 'scale(1)';
+            this.style.width = '280px';
+            this.style.padding = '15px';
+        });
+        
+        timerSection.addEventListener('mouseleave', function() {
+            this.style.opacity = '0.4';
+            this.style.transform = 'scale(0.85)';
+            this.style.width = '200px';
+            this.style.padding = '15px';
+        });
+    }
+});
+</script>
+
 </body>
-</html> 
+</html>
