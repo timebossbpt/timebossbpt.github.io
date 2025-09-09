@@ -1,0 +1,54 @@
+{
+  "name": "Portal Priston Tale - Informações dos Bosses",
+  "short_name": "PT Bosses",
+  "description": "Portal completo com horários, drops e localização dos bosses do Priston Tale",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#4CAF50",
+  "background_color": "#121212",
+  "categories": ["games", "utilities"],
+  "lang": "pt-BR",
+  "icons": [
+    {
+      "src": "img/bosses/miniaturas/mini_babel.webp",
+      "sizes": "64x64",
+      "type": "image/webp",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "img/bosses/miniaturas/mini_valento.webp", 
+      "sizes": "128x128",
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "img/bosses/miniaturas/mini_kelvezu.webp",
+      "sizes": "256x256", 
+      "type": "image/webp",
+      "purpose": "any"
+    },
+    {
+      "src": "img/bosses/miniaturas/mini_yagditha.webp",
+      "sizes": "512x512",
+      "type": "image/webp", 
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Próximo Boss",
+      "short_name": "Timer",
+      "description": "Ver o próximo boss a spawnar",
+      "url": "/?view=timer",
+      "icons": [{"src": "img/bosses/miniaturas/mini_babel.webp", "sizes": "96x96"}]
+    },
+    {
+      "name": "Favoritos", 
+      "short_name": "Favoritos",
+      "description": "Ver seus bosses favoritos",
+      "url": "/?view=favorites",
+      "icons": [{"src": "img/bosses/miniaturas/mini_valento.webp", "sizes": "96x96"}]
+    }
+  ]
+} 

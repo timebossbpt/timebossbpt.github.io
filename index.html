@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Priston Tale - Informações dos Bosses</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Portal completo com horários, drops e localização dos bosses do Priston Tale">
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="PT Bosses">
+    <meta name="msapplication-TileColor" content="#4CAF50">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="img/bosses/miniaturas/mini_valento.webp">
+    <link rel="icon" type="image/png" sizes="32x32" href="img/bosses/miniaturas/mini_babel.webp">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/bosses/miniaturas/mini_kelvezu.webp">
+    <!-- <link rel="manifest" href="/manifest.json"> --> <!-- Desabilitado para desenvolvimento local -->
+    <link rel="mask-icon" href="img/bosses/miniaturas/mini_yagditha.webp" color="#4CAF50">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+
+
+
+
+
+
+</head>
+<body>
+
+<!-- Profile Controls -->
+<div class="theme-controls">
+    <button class="profile-toggle" onclick="toggleProfilePanel()" title="Perfil do Usuário">👤</button>
+    <button class="favorites-toggle" id="favorites-toggle" onclick="toggleFavoritesFilter()" title="Mostrar Favoritos">⭐</button>
+</div>
+
+<!-- Profile Panel -->
+<div class="profile-panel" id="profile-panel">
+    <div class="profile-content">
+        <h3>👤 Perfil do Usuário</h3>
+        <div class="profile-stats">
+            <div class="stat-item">
+                <label>Bosses Favoritos:</label>
+                <span id="favorites-count">0</span>
+            </div>
+            <div class="stat-item">
+                <label>Notificações:</label>
+                <span id="notification-status">Desabilitadas</span>
+            </div>
+        </div>
+        <div class="profile-actions">
+            <button onclick="testNotification()" class="action-btn">🔔 Testar Notificação</button>
+            <button onclick="exportProfile()" class="action-btn">📤 Exportar Configurações</button>
+            <button onclick="importProfile()" class="action-btn">📥 Importar Configurações</button>
+            <button onclick="clearProfile()" class="action-btn danger">🗑️ Limpar Dados</button>
+        </div>
+        <button class="close-panel" onclick="toggleProfilePanel()">❌</button>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Portal de Informações Priston Tale</h1>
+    <p id="current-time"></p>
+    
+    <!-- PWA Install Banner -->
+    <div class="pwa-install-banner" id="pwa-banner" style="display: none;">
+        <div class="pwa-content">
+            <div class="pwa-icon">📱</div>
+            <div class="pwa-text">
+                <strong>Instalar App</strong>
+                <p>Adicione o Portal PT à sua tela inicial para acesso rápido!</p>
+            </div>
+            <button class="pwa-install-btn" id="pwa-install-btn">Instalar</button>
+            <button class="pwa-dismiss-btn" onclick="dismissPWABanner()">✕</button>
+        </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <div class="nav-container">
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-tab="bosses" onclick="switchTab('bosses')">🐉 Bosses</button>
+            <button class="nav-tab" data-tab="events" onclick="switchTab('events')">🎯 Eventos</button>
+            <button class="nav-tab" data-tab="relics" onclick="switchTab('relics')">💎 Relíquia</button>
+            <button class="nav-tab" data-tab="sort" onclick="switchTab('sort')">🍀 Sorteio</button>
+            <!-- <button class="nav-tab" onclick="switchTab('agecalc')">📈 Age Calc</button>  -->
+            <button class="nav-tab" data-tab="attwill" onclick="switchTab('attwill')">Atualizações Futuras</button>
+        </div>
+    </div>
+
+    <!-- Bosses Tab Content -->
+    <div id="bosses-content" class="tab-content active">
+        <div class="controls-container">
+            <div class="controls">
+                <div class="control-group">
+                    <label for="filter-select">Filtro de Item:</label>
+                    <select id="filter-select">
+                        <option value="all">Todos os Itens</option>
+                        <option value="Receita de Relíquias">Receita de Relíquias</option>
+                        <option value="Anel do Valento">Anel do Valento</option>
+                        <option value="Colar do Kelvezu">Colar do Kelvezu</option>
+                        <option value="Botas do Mokova">Botas do Mokova</option>
+                        <option value="Anel Shy">Anel Shy</option>
+                        <option value="Amuleto Tulla">Amuleto Tulla</option>
+                        <option value="Botas do Draxos">Botas do Draxos</option>
+                        <option value="Luvas do Greedy">Luvas do Greedy</option>
+                        <option value="Amuleto do Yagditha">Amuleto do Yagditha</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="time-filter-select">Filtro por Horário:</label>
+                    <select id="time-filter-select">
+                        <option value="all">Todos os Horários</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="sort-select">Ordenação:</label>
+                    <select id="sort-select">
+                        <option value="next-spawn">Horário de Próxima Aparição</option>
+                        <option value="Receita de Relíquias">Receita de Relíquias</option>
+                        <option value="Anel do Valento">Anel do Valento</option>
+                        <option value="Colar do Kelvezu">Colar do Kelvezu</option>
+                        <option value="Botas do Mokova">Botas do Mokova</option>
+                        <option value="Anel Shy">Anel Shy</option>
+                        <option value="Amuleto Tulla">Amuleto Tulla</option>
+                        <option value="Botas do Draxos">Botas do Draxos</option>
+                        <option value="Luvas do Greedy">Luvas do Greedy</option>
+                        <option value="Amuleto do Yagditha">Amuleto do Yagditha</option>
+                    </select>
+                </div>
+            </div>
+            <div class="server-column">
+                <div class="server-name">IDHAS</div>
+                <div class="subservers-container" id="subservers-container">
+                </div>
+            </div>
+        </div>
+        
+        <div id="bosses-container"></div>
+    </div>
+
+    <!-- Fixed Timer Section (only visible on large screens) -->
+    <div class="timer-section" id="timer-section">
+        <div class="timer-controls">
+            <button class="timer-toggle" id="pin-toggle" onclick="toggleScrollFade()" title="Fixar/Desfixar">📌</button>
+            <button class="settings-toggle" onclick="toggleSettings()" title="Configurações">⚙️</button>
+            <button class="settings-toggle" onclick="showHelpModal()" title="Ajuda - O que cada controle faz">❓</button>
+        </div>
+        <h3>⏰ Próximo Boss</h3>
+        <div class="next-boss-info" id="next-boss-info">
+            <div class="next-boss-name" id="next-boss-name">Carregando...</div>
+            <div class="next-boss-location" id="next-boss-location">📍 Carregando...</div>
+            <div class="countdown-timer" id="countdown-timer">--:--:--</div>
+        </div>
+        
+        <div class="notification-controls" id="notification-controls">
+            <h4>🔔 Notificações</h4>
+            <div class="sound-control">
+                <label>Som:</label>
+                <button class="sound-toggle-btn" id="sound-toggle" onclick="toggleSound()">🔇 OFF</button>
+            </div>
+            <div class="sound-control">
+                <label>Tipo:</label>
+                <select class="sound-select" id="sound-type-select" onchange="changeSoundType()">
+                    <option value="beep">🎵 Beep</option>
+                    <option value="chime">🔔 Chime</option>
+                    <option value="alert">🚨 Alert</option>
+                    <option value="bell">🔔 Bell</option>
+                    <option value="horn">📯 Horn</option>
+                    <option value="whistle">🎺 Whistle</option>
+                </select>
+            </div>
+            <div class="sound-control">
+                <label>Aviso:</label>
+                <button class="sound-toggle-btn" id="early-warning-toggle" onclick="toggleEarlyWarning()">⚠️ OFF</button>
+            </div>
+            <div class="sound-control">
+                <label>Vol:</label>
+                <div class="volume-control">
+                    <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="50" onchange="updateVolume()">
+                    <span class="volume-display" id="volume-display">50%</span>
+                </div>
+            </div>
+            <div class="sound-control">
+                <label>Notif:</label>
+                <button class="sound-toggle-btn" id="notification-toggle" onclick="toggleNotifications()">🔔 OFF</button>
+            </div>
+                <div class="sound-control">
+                    <label>Notificar apenas bosses favoritos:</label>
+                    <input type="checkbox" id="notify-favorites-toggle" onchange="toggleNotifyOnlyFavorites()">
+            </div>
+        </div>
+    </div>
+
+    <!-- Events Tab Content -->
+    <div id="events-content" class="tab-content">
+        <div class="event-card">
+            <div class="event-header">
+                <img src="img/bosses/maps/vale-tranquilo.png" alt="Cientista Marie - Vale Tranquilo" class="event-spawn-img">
+                <div>
+                    <h2>Cientista Marie</h2>
+                    <p style="color: #90ee90; font-size: 1.1em; margin: 5px 0;">📍 Vale Tranquilo i6 (Cachoeira)</p>
+                </div>
+            </div>
+            
+            <div class="event-info">
+                <div class="event-answers">
+                    <h3>✅ Respostas (Nessa ordem):</h3>
+                    <div class="answer-item">1° - Pedra Idetas</div>
+                    <div class="answer-item">2° - Gold</div>
+                    <div class="answer-item">3° - Mago</div>
+                    <div class="answer-item">4° - Tônico Capilar</div>
+                </div>
+                
+                <div class="event-location">
+                    <h4>📋 Informações Importantes:</h4>
+                    <div class="location-info">
+                        • A recompensa irá para o seu distribuidor, abra a recompensa e você ganhará outra recompensa.
+                    </div>
+                    <div class="location-info">
+                        • Para trocar a engrenagem e a prece, vá até o quadrante D5 (Rind Violenta), na cidade de Pillai (qualquer sub-servidor).
+                    </div>
+                    <div class="frequency-info">
+                        🕐 Frequência: 1 vez ao dia
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Relics Tab Content -->
+    <div id="relics-content" class="tab-content">
+        <div class="event-card">
+            <div class="event-header">
+                    <h2>Relíquia</h2>
+                    <p style="color: #90ee90; font-size: 1.1em; margin: 5px 0;">📍Pillai(G-7) verificar suas relíquias</p>
+                
+            </div>
+            
+            <div class="event-info">
+                <div class="relics-images" style="display: flex; justify-content: center;  align-items: center;">
+                    <img src="img/reliquia/remix.jpg" alt="Reliquias" >
+                </div>
+                    <h3 style="display: flex; justify-content: center;  align-items: center;">🔄 Versão de como é dentro do Jogo</h3> 
+                 <div class="event-answers" style="display: flex; justify-content: center;  align-items: center;">  <img src="img/reliquia/original.jpg" alt="Reliquias" ></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Road Map Tab Content -->
+    <div id="attwill-content" class="tab-content">
+        <div class="sort-card" style="border: 2px dashed #4CAF50; background-color: #1a2a1a;">
+            <div style="text-align: center; padding: 20px; color: #4CAF50;">
+                <h3>🚀 Em Desenvolvimento</h3>
+                <p style="color: #90ee90; margin-bottom: 15px;">Próximas funcionalidades que serão implementadas:</p>
+                <div style="text-align: left; max-width: 500px; margin: 0 auto;">
+                    <div style="background-color: #2a2a2a; padding: 10px; margin: 5px 0; border-radius: 5px; border-left: 3px solid #FFD700;">
+                        📤 <strong>Compartilhamento:</strong> Compartilhe horários específicos com amigos
+                    </div>
+                    <div style="background-color: #2a2a2a; padding: 10px; margin: 5px 0; border-radius: 5px; border-left: 3px solid #FFD700;">
+                        📤 <strong>Age Calc:</strong> é uma calculadora de "aging" que permite aos jogadores prever o resultado de aumentar os atributos de um item ("Aging") ou calcular os atributos originais de um item com "aging" para verificar se é "perfeito". Essas ferramentas são úteis para simular os efeitos do processo de "Aging" em armas e armaduras, levando em conta os diferentes status como defesa, ataque, crítico, e bloqueio, com a possibilidade de incluir a função "Despertado".  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sort Tab Content -->
+    <div id="sort-content" class="tab-content">
+        <div class="sort-card">
+            <div class="sort-info">
+                <div class="sort-card">
+                    <div class="lottery-container">
+                        <form class="lottery-form" id="lottery-form">
+                            <div class="lottery-text">
+                                Sortear 
+                                <input type="number" id="quantity" min="1" max="100" value="1" class="lottery-input">
+                                número
+                                <div class="range-section">
+                                    entre 
+                                    <input type="number" id="min-range" min="0" max="999999" value="1" class="lottery-input range-input">
+                                    e 
+                                    <input type="number" id="max-range" min="1" max="999999" value="100" class="lottery-input range-input">
+                                </div>
+                            </div>
+
+                            <div class="options-section">
+                                <button type="button" class="options-toggle" onclick="toggleLotteryOptions()">
+                                    <span>Opções do Sorteio</span>
+                                    <span class="arrow">▼</span>
+                                </button>
+                                
+                                <div class="options-content" id="lottery-options" style="display: none;">
+                                    <label class="option-item">
+                                        <input type="checkbox" id="allow-repeats" checked>
+                                        Permitir números repetidos
+                                    </label>
+                                    <label class="option-item">
+                                        <input type="checkbox" id="sort-results">
+                                        Ordenar resultados
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="lottery-button">
+                                SORTEAR AGORA!
+                            </button>
+                        </form>
+
+                        <div class="lottery-results" id="lottery-results" style="display: none;">
+                            <h3>Resultado do Sorteio</h3>
+                            <div class="results-display" id="results-display"></div>
+                            <div class="results-actions">
+                                <button type="button" onclick="copyResults()">Copiar</button>
+                                <button type="button" onclick="newDraw()">Novo Sorteio</button>
+                            </div>
+                            <div class="draw-info">
+                                <small>Sorteado em: <span id="draw-time"></span></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Placeholder for future social features -->
+        
+    </div>    
+
+    <a href="https://wa.me/55067996456868" class="whatsapp-float" target="_blank" aria-label="Fale no WhatsApp">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+    </a>
+</div>
+
+<!-- Help Modal -->
+<div class="help-modal-overlay" id="help-modal-overlay" onclick="closeHelpModal()">
+    <div class="help-modal" onclick="event.stopPropagation()">
+        <button class="help-close" onclick="closeHelpModal()">✕</button>
+        <h3>❓ Guia dos Controles de Notificação</h3>
+        
+
+        <div class="help-section">
+            <h4>🔊 Som</h4>
+            <p><strong>O que faz:</strong> Toca um áudio no navegador quando o boss está chegando.</p>
+            <p><strong>Quando toca:</strong> 1 minuto antes e no exato momento em que o boss nasce.</p>
+            <p><strong>Requisito:</strong> Você precisa estar com a aba aberta para ouvir o som.</p>
+        </div>
+
+        <div class="help-section">
+            <h4>⚠️ Aviso</h4>
+            <p><strong>O que faz:</strong> Ativa um alerta antecipado de 5 minutos antes do boss nascer.</p>
+            <p><strong>Quando dispara:</strong> 5 minutos antes do boss aparecer.</p>
+            <p><strong>Som especial:</strong> Toca um som tipo "chime" (diferente do som normal).</p>
+            <p><strong>Combinado com:</strong> Também envia notificação visual (se "Notif" estiver ativado).</p>
+        </div>
+
+        <div class="help-section">
+            <h4>🔔 Notif</h4>
+            <p><strong>O que faz:</strong> Mostra notificação visual do sistema operacional (Windows/Mac/Linux).</p>
+            <p><strong>Funciona:</strong> Mesmo quando você está em outra aba ou aplicativo.</p>
+            <p><strong>Permissão:</strong> É necessário permitir notificações no navegador.</p>
+        </div>
+
+        <div class="help-section">
+            <h4>⭐ Notificar apenas bosses favoritos</h4>
+            <p><strong>O que faz:</strong> Se ativado, você só recebe notificações dos bosses que você favoritou (estrela amarela na lista de bosses).</p>
+            <p><strong>Se desativado:</strong> Você recebe notificações de todos os bosses normalmente.</p>
+            <p><strong>Persistência:</strong> Sua escolha é salva no perfil e mantida ao recarregar a página.</p>
+        </div>
+
+        <div class="help-section">
+            <h4>🎵 Tipo</h4>
+            <p><strong>O que faz:</strong> Escolhe o estilo de som que será tocado.</p>
+            <p><strong>Opções:</strong> Beep, Chime, Alert, Bell, Horn, Whistle.</p>
+        </div>
+
+        <div class="help-section">
+            <h4>🔊 Vol</h4>
+            <p><strong>O que faz:</strong> Controla o volume do som (0% a 100%).</p>
+        </div>
+
+        <div class="help-timeline">
+            <h4 style="color: var(--text-accent); text-align: center; margin-bottom: 15px;">📅 Timeline de Notificações</h4>
+            <div class="help-timeline-item">
+                <span class="help-timeline-icon">⚠️</span>
+                <div>
+                    <strong>5 minutos antes</strong> (se "Aviso" = ON)<br>
+                    🔊 Som: Chime + 🔔 Notificação visual (se "Notif" = ON e dentro das regras de favoritos)
+                </div>
+            </div>
+            <div class="help-timeline-item">
+                <span class="help-timeline-icon">🚨</span>
+                <div>
+                    <strong>1 minuto antes</strong> (se "Som" = ON)<br>
+                    🔊 Som: Alert + 🔔 Notificação visual (se "Notif" = ON e dentro das regras de favoritos)
+                </div>
+            </div>
+            <div class="help-timeline-item">
+                <span class="help-timeline-icon">🐉</span>
+                <div>
+                    <strong>Boss nasce</strong> (se "Som" = ON)<br>
+                    🔊 Som: Alert + 🔔 Notificação visual (se "Notif" = ON e dentro das regras de favoritos)<br>
+                </div>
+            </div>
+        </div>
+
+        <div class="help-tip">
+            💡 <strong>Dica:</strong> Para receber notificações mesmo fora da aba, ative "🔔 Notif" e permita notificações no navegador!
+        </div>
+
+        <div class="help-example">
+            <strong>Configuração recomendada:</strong><br>
+            🔊 Som: ON | ⚠️ Aviso: ON | 🔔 Notif: ON<br>
+            = Máximo de alertas para não perder nenhum boss!
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script type="module" src="js/main.js"></script>
+
+</body>
+</html> 
