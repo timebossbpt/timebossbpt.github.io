@@ -642,9 +642,16 @@ li:hover {
 }
 
 /* ===== ESTILOS PARA IMAGENS DAS RELÍQUIAS ===== */
-.relics-images,
-.event-answers {
+.relics-images {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+    padding: 0 10px;
+    overflow: visible; /* Mudado para visible para não cortar a imagem */
+}
+.event-answers {
+    display: contents;
     justify-content: center;
     align-items: center;
     margin: 15px 0;

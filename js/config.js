@@ -171,7 +171,7 @@ export const BOSSES_DATA = [
         lvl : 160
     },
     {
-        nome: "Dragão Snowstorn", 
+        nome: "Dragão<br>Snowstorn", 
         local: "Abismo do Mar Congelado (AB2)", 
         horarios: [11, 22],
         drop: ["Itens do mapa"],
@@ -195,7 +195,7 @@ export const BOSSES_DATA = [
         lvl : 180
     },
     {
-        nome: "Guardião de Elite <br>(Evento)", 
+        nome: "Guardião<br>de Elite<br>(Evento)", 
         local: "Mais Frequentado Santuário do Abismo (AB1)<br><b>Outros Lugares:</b> AB3, Arma, Lab, Mina, Lost1, Ice2", 
         horarios: [11,22],
         drop: ["+531.925.821.428 de Experiência "],
