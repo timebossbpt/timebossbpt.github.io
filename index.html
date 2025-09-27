@@ -30,6 +30,17 @@
 </head>
 <body>
 
+<!-- Modal Dinâmico para Mensagem de Comunidade
+<div id="community-modal" class="community-modal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.65); z-index:2000; justify-content:center; align-items:center;">
+    <div style="background:#232323; color:#fff; max-width:95vw; width:400px; border-radius:12px; box-shadow:0 8px 32px #0008; padding:32px 20px 20px 20px; position:relative; text-align:center;">
+        <button onclick="closeCommunityModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:#fff; font-size:1.5em; cursor:pointer;">✖</button>
+        <h2 style="color:#4CAF50; margin-bottom:12px;">Vamos Otimizar o XP do Boss!</h2>
+        <div id="community-modal-content">
+           
+         </div>
+    </div>
+</div> -->
+
 <!-- Profile Controls -->
 <div class="theme-controls">
     <button class="profile-toggle" onclick="toggleProfilePanel()" title="Perfil do Usuário">👤</button>
@@ -537,5 +548,51 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+<footer class="site-footer">
+  <a href="sobre.html">Sobre</a> |
+  <a href="contato.html">Contato</a> |
+  <a href="privacidade.html">Política de Privacidade</a>
+</footer>
+</body>
+<!-- <script>
+// Função para abrir e fechar o modal
+function showCommunityModal(message) {
+    document.getElementById('community-modal-content').innerHTML = message;
+    document.getElementById('community-modal').style.display = 'flex';
+}
+function closeCommunityModal() {
+    document.getElementById('community-modal').style.display = 'none';
+}
+
+// Mensagem dinâmica
+const communityMessage = `
+<p>Vamos Otimizar matar o Boss XP!<br>
+Siga o <strong>Time Boss</strong>.<br><br>
+Quando for o <strong>Time Boss Alfa</strong>, vamos deixar o PVP de lado só na hora do XP, pois sabemos que isso é importante para todos.<br><br>
+Se todos roletam o XP, a comunidade inteira ganha!<br><br>
+Você que é FS, sai do boss com 2% e deixa os magos baterem mais para ter mais chance de roletar.<br><br>
+<strong>Vamos pensar no coletivo. Obrigado!</strong></p>
+`;
+
+// Exibe o modal automaticamente às 11h e 22h
+function checkAndShowCommunityModal() {
+    const now = new Date();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    // Só mostra se for exatamente 11:00 ou 22:00 (primeiro minuto)
+    if ((hour === 11 || hour === 22) ) {
+        // Só mostra se ainda não foi mostrado nesta hora
+        if (!window.__communityModalShown || window.__communityModalShown !== hour) {
+            showCommunityModal(communityMessage);
+            window.__communityModalShown = hour;
+        }
+    }
+}
+
+// Checa a cada minuto
+setInterval(checkAndShowCommunityModal, 60000);
+// Checa ao carregar a página também
+checkAndShowCommunityModal();
+</script> -->
 </body>
 </html>
