@@ -2,23 +2,29 @@
  * Aplicação principal - Integração de todos os módulos
  */
 
-import { API_CONFIG, BOSSES_DATA } from './config.js';
+import { API_CONFIG, BOSSES_DATA, BUILDS_DATA } from './config.js';
 import { getSaoPauloDate, formatCurrentTime, debounce, $, throttle } from './utils.js';
 import { storageManager } from './storage.js';
 import { soundManager } from './sound-manager.js';
 
+
+// Função auxiliar para capitalizar
+// Exemplo: "forca" => "Força"
+function capitalize(str) {
+    if (!str) return '';
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 class AppManager {
     constructor() {
-        this.serverTimesData = [];
-        this.serverDataLoaded = false;
+    this.serverTimesData = [];
+    this.serverDataLoaded = false;
     this.lastNotifiedBosses = {}; // Armazena status de notificação por bossKey
     this._lastBossKey = null;
     this._lastBossTimeToNext = null;
-        this.userProfile = null;
+    this.userProfile = null;
     this.showOnlyFavorites = false;
     this.notifyOnlyFavorites = false;
-
-        // this.initializeApp(); // Inicialização movida para main.js
     }
 
     /**
@@ -44,11 +50,130 @@ class AppManager {
 
         // Inicializa sistema de loteria
         this.initializeLottery();
+    }
 
-        // Inicializa PWA
-        this.initializePWA();
+    /**
+     * Renderiza menu/tab de personagens e detalhes de builds
+     */
+    renderBuilds() {
+        const buildsContainer = document.getElementById('builds-container');
+        if (!buildsContainer) return;
+        if (typeof this.selectedBuildIndex !== 'number') this.selectedBuildIndex = 0;
+        const tabMenu = document.createElement('div');
+        tabMenu.className = 'flex flex-wrap justify-center border-b border-gray-200 dark:border-gray-700 whitespace-nowrap overflow-x-auto md:overflow-x-visible px-1 md:px-0 bg-[#27282d] dark:bg-[#27282d]';
 
-        console.log('✅ Aplicação inicializada com sucesso');
+    BUILDS_DATA.forEach((personagem, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'builds-tab-btn' + (idx === this.selectedBuildIndex ? ' selected' : '');
+            btn.innerHTML = `${personagem.emoji ? `<span class='text-xl'>${personagem.emoji}</span> ` : ''}${personagem.nome}`;
+            btn.onclick = () => {
+                this.selectedBuildIndex = idx;
+                this.renderBuilds();
+            };
+            tabMenu.appendChild(btn);
+        });
+
+    const divider2 = document.createElement('div');
+    divider2.className = 'w-full flex justify-center my-2';
+    divider2.innerHTML = '<div class="w-1/2 border-b-2 border-gray-300 dark:border-gray-600"></div>';
+
+    buildsContainer.innerHTML = '';
+    buildsContainer.appendChild(tabMenu);
+    buildsContainer.appendChild(divider2);
+
+        buildsContainer.innerHTML = '';
+        buildsContainer.appendChild(tabMenu);
+
+        // Linha divisória
+        const divider = document.createElement('div');
+        divider.className = 'w-full flex justify-center my-2';
+        divider.innerHTML = '<div class="w-1/2 border-b-2 border-gray-300 dark:border-gray-600"></div>';
+        buildsContainer.appendChild(divider);
+
+        // Conteúdo do personagem selecionado
+    const personagem = BUILDS_DATA[this.selectedBuildIndex];
+        if (!personagem) return;
+
+        const content = document.createElement('div');
+        content.className = 'prose dark:prose-invert max-w-none p-4 bg-[#27282d]';
+
+        // Header
+        const header = document.createElement('h2');
+        header.className = 'flex items-center gap-2 text-2xl font-bold';
+        header.innerHTML = `${personagem.emoji} ${personagem.nome}`;
+        content.appendChild(header);
+
+        // Status/Builds
+        const statusTitle = document.createElement('h3');
+        statusTitle.className = 'mt-4';
+        statusTitle.textContent = 'Status';
+        content.appendChild(statusTitle);
+
+        const statusGrid = document.createElement('div');
+        statusGrid.className = 'grid gap-4';
+        personagem.builds.forEach(build => {
+            const buildBox = document.createElement('div');
+            buildBox.className = 'border rounded-lg p-3 bg-black/50 transition-colors duration-200 select-all';
+            const buildHeader = document.createElement('div');
+            buildHeader.className = 'flex flex-col gap-1';
+            buildHeader.innerHTML = `<strong>${build.tipo || build.nome}</strong><span class="text-xs text-gray-400">(${build.descricao})</span>`;
+            buildBox.appendChild(buildHeader);
+            // Lista de status
+            if (build.status) {
+                const ul = document.createElement('ul');
+                ul.className = 'list-none p-0 mt-4 text-sm';
+                Object.entries(build.status).forEach(([key, val]) => {
+                    ul.innerHTML += `<li><b class="text-yellow-300">${capitalize(key)}:</b> <b>${val}</b></li>`;
+                });
+                buildBox.appendChild(ul);
+            }
+            content.appendChild(buildBox);
+        });
+        content.appendChild(statusGrid);
+
+        // Divider
+        const hr = document.createElement('hr');
+        hr.className = 'my-12 h-0.5 border-t-0 bg-neutral-100 dark:bg-white/10';
+        content.appendChild(hr);
+
+        // Skills
+        const skillsTitle = document.createElement('h3');
+        skillsTitle.className = 'mt-8';
+        skillsTitle.textContent = 'Skills';
+        content.appendChild(skillsTitle);
+
+        const skillsSection = document.createElement('div');
+        skillsSection.className = 'space-y-4';
+        if (personagem.skills && Array.isArray(personagem.skills)) {
+            // Se for array de objetos (com tier/nome/habilidades)
+            if (personagem.skills.length > 0 && typeof personagem.skills[0] === 'object') {
+                personagem.skills.forEach(skillTier => {
+                    const skillBox = document.createElement('div');
+                    skillBox.className = 'border rounded-lg p-3 bg-black/50 transition-colors duration-200 select-all';
+                    skillBox.innerHTML = `<h4 class=\"font-semibold m-0\">Tier ${skillTier.tier || ''} ${skillTier.nome || ''}</h4>`;
+                    if (Array.isArray(skillTier.habilidades)) {
+                        const ul = document.createElement('ul');
+                        ul.className = 'list-none p-0 text-sm';
+                        skillTier.habilidades.forEach(hab => {
+                            ul.innerHTML += `<li><b class=\"text-yellow-300\">${hab.label}:</b><b> ${hab.value}</b></li>`;
+                        });
+                        skillBox.appendChild(ul);
+                    }
+                    skillsSection.appendChild(skillBox);
+                });
+            } else {
+                // Se for array de strings
+                const ul = document.createElement('ul');
+                ul.className = 'list-none p-0 text-sm';
+                personagem.skills.forEach(skillName => {
+                    ul.innerHTML += `<li><b class=\"text-yellow-300\">${skillName}</b></li>`;
+                });
+                skillsSection.appendChild(ul);
+            }
+        }
+        content.appendChild(skillsSection);
+
+        buildsContainer.appendChild(content);
     }
 
     /**
@@ -189,7 +314,7 @@ class AppManager {
     /**
      * Obtém dados mock para fallback
      */
-    getMockServerData() {
+    getMockServerData(){
         const servers = ['MOC ALFA', 'MOC BETA', 'MOC GAMA'];
         return servers.map(server => ({ Idhas: server, Horario: '01' }));
     }
@@ -802,20 +927,22 @@ class AppManager {
         const activeTab = document.querySelector(`[data-tab="${tabName}"]`);
         if (activeTab) {
             activeTab.classList.add('active');
-        } else {
         }
 
         // Mostra conteúdo correspondente
         const content = document.getElementById(tabName + '-content');
         if (content) {
             content.classList.add('active');
-        } else {
         }
 
         // Se mudou para bosses, atualiza dados
         if (tabName === 'bosses') {
             this.fetchServerTimes();
             this.renderBosses();
+        }
+        // Se mudou para builds, renderiza builds
+        if (tabName === 'builds') {
+            this.renderBuilds();
         }
     }
 
@@ -1210,4 +1337,4 @@ window.toggleLotteryOptions = () => window.lotteryManager.toggleOptions();
 window.copyResults = () => window.lotteryManager.copyResults();
 window.newDraw = () => window.lotteryManager.newDraw();
 
-export { app }; 
+export { app };

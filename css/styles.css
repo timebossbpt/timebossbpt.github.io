@@ -699,6 +699,56 @@ li:hover {
 @media (min-width: 1440px) {
     .relics-images img {
         max-height: 1000px; /* GIGANTE para monitores 4K */
+}
+
+/* ===== BOTÕES DE PERSONAGEM (Builds Tab) ===== */
+.builds-tab-btn {
+    background: linear-gradient(90deg, #232526 0%, #414345 100%);
+    color: #FFD700;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    font-weight: bold;
+    font-size: 1em;
+    padding: 12px 24px;
+    margin: 6px 8px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.2s, box-shadow 0.2s;
+    outline: none;
+    position: relative;
+    z-index: 1;
+}
+.builds-tab-btn:hover, .builds-tab-btn:focus {
+    background: linear-gradient(90deg, #FFD700 0%, #f2ba30 100%);
+    color: #232526;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 4px 16px rgba(242,186,48,0.25);
+}
+.builds-tab-btn.selected {
+    background: linear-gradient(90deg, #f2ba30 0%, #FFD700 100%);
+    color: #232526;
+    box-shadow: 0 4px 16px rgba(242,186,48,0.35);
+    border-bottom: 3px solid #FFD700;
+    transform: scale(1.07);
+}
+
+@media (max-width: 600px) {
+    .builds-tab-btn {
+        font-size: 0.95em;
+        padding: 10px 8px;
+        margin: 4px 2px;
+        min-width: 90px;
+        border-radius: 6px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+        white-space: nowrap;
+        overflow-x: auto;
+        max-width: 98vw;
+    }
+    .builds-tab-btn.selected {
+        border-bottom: 2px solid #FFD700;
+        transform: scale(1.04);
+    }
+}
         min-height: 700px; /* Altura mínima bem grande */
         max-width: 90%; /* Mais largura disponível */
     }
