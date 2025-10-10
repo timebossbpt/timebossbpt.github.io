@@ -222,7 +222,7 @@ export const BOSSES_DATA = [
     //     lvl : 200
     // }
     {
-        nome: "Hopy de<br>Lacinho(Evento)", 
+        nome: "Hopi de<br>Lacinho(Evento)", 
         local: "Mais Frequentado Santuário do Abismo (AB1)<br><b>Outros Lugares:</b> AB3, Arma, Lab, Mina, Lost1, Ice2", 
         horarios: [5,9,15,20,23],
         drop: ["Saco da Sorte(LÁ ELE) "],
