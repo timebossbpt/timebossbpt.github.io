@@ -883,12 +883,27 @@ class AppManager {
     getDropChance(boss, dropItemName) {
         if (!boss.drop) return 0;
         const dropString = boss.drop.join(' ');
-        const regex = new RegExp(`${dropItemName}\\s*\\(([^)]+)%`, 'i');
-        const match = dropString.match(regex);
-        if (match && match[1]) {
-            const chance = parseFloat(match[1].replace(',', '.'));
-            return isNaN(chance) ? 0 : chance;
-        }
+        const nameLower = String(dropItemName).toLowerCase();
+
+        // Verifica se o nome do item aparece nos drops
+        const idx = dropString.toLowerCase().indexOf(nameLower);
+        if (idx === -1) return 0;
+
+        // Pega um trecho a partir do nome (procura a porcentagem ao redor do nome)
+        const snippet = dropString.slice(idx, idx + 200);
+
+        // Procura por porcentagem no formato 0,17% ou 0.17%
+        let m = snippet.match(/(\d+(?:[.,]\d+)?)\s*%/);
+        if (m && m[1]) return parseFloat(m[1].replace(',', '.')) || 0;
+
+        // Procura por formatos como '(1,60% de chance)' mais distantes
+        m = dropString.match(/(\d+(?:[.,]\d+)?)\s*%/);
+        if (m && m[1]) return parseFloat(m[1].replace(',', '.')) || 0;
+
+        // Se não houver % mas houver um número próximo ao nome, retorna ele (ex: 'Anel do Valento 0,17')
+        m = snippet.match(/(\d+(?:[.,]\d+)?)/);
+        if (m && m[1]) return parseFloat(m[1].replace(',', '.')) || 0;
+
         return 0;
     }
 
