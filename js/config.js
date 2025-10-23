@@ -6,6 +6,10 @@
 export const API_CONFIG = {
     SHEET_URL: 'https://script.google.com/macros/s/AKfycbxBOyU1-CxIpSqHJW94imrkMctg8WrbO7w8ZnWBmlyVRz53KaNklmyPbBVIdyluI246/exec',
     FETCH_INTERVAL: 300000, // 5 minutos
+    // timeout em ms para requisições externas (ex: Google Apps Script)
+    REQUEST_TIMEOUT: 10000, // 10s
+    // número máximo de tentativas em caso de falha de fetch
+    REQUEST_RETRIES: 2,
     UPDATE_INTERVAL: 1000,   // 1 segundo
     RENDER_INTERVAL: 60000   // 1 minuto
 };
