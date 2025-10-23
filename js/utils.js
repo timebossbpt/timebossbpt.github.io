@@ -343,3 +343,35 @@ export function slugify(text) {
 
 // Inicialização de limpeza de cache
 setInterval(clearExpiredCache, 60000); // A cada minuto 
+
+/**
+ * Faz fetch com timeout e retries simples (exponencial de 2x)
+ * @param {string} url - URL a ser chamada
+ * @param {Object} options - Opções do fetch
+ * @param {number} timeout - Timeout em ms
+ * @param {number} retries - Número de tentativas
+ */
+export async function fetchWithTimeout(url, options = {}, timeout = 10000, retries = 2) {
+    let attempt = 0;
+    const wait = (ms) => new Promise(res => setTimeout(res, ms));
+
+    while (attempt <= retries) {
+        attempt++;
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), timeout);
+        try {
+            const resp = await fetch(url, { ...options, signal: controller.signal });
+            clearTimeout(id);
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            return resp;
+        } catch (err) {
+            clearTimeout(id);
+            // Se última tentativa, rethrow
+            if (attempt > retries) throw err;
+            // backoff exponencial (base 500ms)
+            const backoff = 500 * Math.pow(2, attempt - 1);
+            console.warn(`[fetchWithTimeout] tentativa ${attempt} falhou: ${err.message}. Retentando em ${backoff}ms`);
+            await wait(backoff);
+        }
+    }
+}

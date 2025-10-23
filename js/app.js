@@ -3,7 +3,7 @@
  */
 
 import { API_CONFIG, BOSSES_DATA, BUILDS_DATA } from './config.js';
-import { getSaoPauloDate, formatCurrentTime, debounce, $, throttle } from './utils.js';
+import { getSaoPauloDate, formatCurrentTime, debounce, $, throttle, fetchWithTimeout } from './utils.js';
 import { storageManager } from './storage.js';
 import { soundManager } from './sound-manager.js';
 
@@ -287,11 +287,9 @@ class AppManager {
             console.log('🔄 Carregando dados dos servidores...');
             this.serverDataLoaded = false;
 
-            const response = await fetch(API_CONFIG.SHEET_URL);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
+            // console.log('[fetchServerTimes] chamando API:', API_CONFIG.SHEET_URL);
+            // usa helper com timeout e retries
+            const response = await fetchWithTimeout(API_CONFIG.SHEET_URL, {}, API_CONFIG.REQUEST_TIMEOUT, API_CONFIG.REQUEST_RETRIES);
             const data = await response.json();
             this.serverTimesData = data;
 
