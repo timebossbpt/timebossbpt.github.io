@@ -12,8 +12,7 @@
     --shadow-color: rgba(0, 0, 0, 0.3);
     --hover-bg: #333;
 }
-
-/* Base Styles */
+    
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background-color: var(--bg-primary);
@@ -412,6 +411,90 @@ h1 {
     transition: all 0.3s ease;
 }
 
+/* Compact/Accordion styles for boss cards */
+.boss-card.collapsed {
+    align-items: center;
+}
+
+.boss-compact {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+}
+
+.boss-header-compact {
+    display: flex;
+    align-items: flex-start; /* align name/meta to top so spawn sits beneath neatly */
+    gap: 12px;
+    width: 100%;
+    flex-wrap: wrap; /* allow the spawn image to wrap to a new row beneath the text */
+}
+.compact-img { width:56px; height:56px; border-radius:8px; object-fit:cover; border:1px solid #333; border-radius: 50%;}
+.compact-main { flex: 1 1 auto; min-width: 0; }
+.compact-name { margin:0; font-size:1.1em; color:var(--text-accent); }
+.compact-meta {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column; /* stack time and location vertically */
+    gap: 6px;
+}
+.compact-time { font-weight:600; }
+.compact-location { opacity:0.9; }
+
+/* Layout: place spawn minimap below name/time in compact header (not to the right) */
+
+.boss-header-compact .boss-spawn-img {
+    order: 2; /* place after the text block when wrapping */
+    /* allow the spawn image to grow to the full width of the available row */
+    flex: 1 1 100%;
+    width: 100%;
+    max-width: 640px; /* reasonable cap to avoid overly large maps on very wide screens */
+    box-sizing: border-box;
+    margin-top: 8px;
+    align-self: stretch; /* stretch to fill the row under the name/meta */
+}
+
+/* On small screens let the spawn image scale down to avoid overflow */
+@media (max-width: 600px) {
+    .boss-header-compact .boss-spawn-img {
+        width: 100%;
+        max-width: 320px;
+        align-self: center;
+    }
+}
+
+.toggle-icon { font-size:1.2em; color:#bbb; margin-left:8px; transition: transform 0.25s ease; }
+
+.boss-details {
+    width:100%;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.25s ease;
+    padding-top: 0;
+}
+
+.boss-card.expanded .boss-details {
+    max-height: 1200px; /* bastante espaço para o conteúdo */
+    opacity: 1;
+    padding-top: 12px;
+}
+
+/* ensure inner section titles and lists look good inside collapsed details */
+.boss-card .section-title { margin-top: 8px; }
+.boss-card .boss-details ul li { margin-bottom: 8px; }
+
+/* keyboard focus style */
+.boss-card:focus { outline: 3px solid rgba(76,175,80,0.25); box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+
+@media (max-width: 600px) {
+    .compact-time { display:block; }
+    .compact-location { display:block; color:#999; font-size:0.85em; }
+    .compact-img { width:48px; height:48px;border-radius: 50%; }
+}
+
 .boss-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 16px var(--shadow-color);
@@ -424,30 +507,102 @@ h1 {
     gap: 10px;
     min-width: 100px;
     flex-shrink: 0;
+    position: relative; /* keep for absolute hover overlay of spawn image */
 }
 
 .boss-header img {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    object-fit: containcover;
+    object-fit: contain;
     border: 2px solid #4CAF50;
 }
 
 .boss-header .boss-spawn-img {
-    width: 100px;
+    width: 120px; /* default (expanded) size for minimap */
+    height: auto;
     border-radius: 4px;
     border: 1px solid #000000;
     margin-top: 5px;
-    transition: transform 0.3s ease;
+    transition: opacity 0.2s ease, transform 0.25s ease, box-shadow 0.2s ease;
     cursor: pointer;
+    object-fit: contain;
+    opacity: 0;
+    pointer-events: none; /* disabled while hidden */
+    display: block; /* keep in flow for positioning but hidden via opacity */
 }
 
+/* Hover overlay: use absolute positioning to avoid layout shift */
 .boss-header .boss-spawn-img:hover {
+    position: absolute;
+    left: 0;
+    top: 0;
     transform: scale(2.5);
+    transform-origin: center center;
     z-index: 1000;
-    position: relative;
     border: 2px solid #000000;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+/* Compact (collapsed) card: show a small thumbnail/minimap */
+.boss-card.collapsed .boss-header .boss-spawn-img,
+.boss-compact .compact-img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 2px solid #4CAF50;
+    object-fit: cover;
+}
+
+/* When collapsed, keep spawn image hidden until expanded */
+.boss-card.collapsed .boss-header .boss-spawn-img {
+    opacity: 0;
+    transform: scale(0.9);
+    pointer-events: none;
+}
+
+/* When expanded, keep the header/spawn image at normal size and let info/details use the remaining space */
+.boss-card.expanded {
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.boss-card.expanded .boss-info {
+    flex: 1 1 auto;
+}
+
+.boss-card.expanded .boss-details {
+    width: 100%;
+}
+
+/* Show spawn image only when expanded */
+.boss-card.expanded .boss-header .boss-spawn-img {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+    /* take full width of the header area but stay within a max width */
+    display: block !important;
+    width: 100%;
+    max-width: 640px;
+    align-self: stretch;
+}
+
+/* Ensure the spawn minimap is hidden unless the boss card is explicitly expanded.
+   This covers cases where cards don't have a `.collapsed` class by default. */
+.boss-spawn-img {
+    /* hide by default everywhere; only show when inside an expanded .boss-card */
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* show spawn images that live inside an expanded card */
+.boss-card.expanded .boss-spawn-img {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
 }
 
 .boss-header h2 {
@@ -699,6 +854,7 @@ li:hover {
 @media (min-width: 1440px) {
     .relics-images img {
         max-height: 1000px; /* GIGANTE para monitores 4K */
+    }
 }
 
 /* ===== BOTÕES DE PERSONAGEM (Builds Tab) ===== */
@@ -748,9 +904,6 @@ li:hover {
         border-bottom: 2px solid #FFD700;
         transform: scale(1.04);
     }
-}
-        min-height: 700px; /* Altura mínima bem grande */
-        max-width: 90%; /* Mais largura disponível */
     }
     
     .relics-images {
@@ -762,7 +915,6 @@ li:hover {
         transform: scale(1.1); /* Zoom adicional no hover */
         cursor: zoom-in;
     }
-}
 
 .relics-images img:hover,
 .event-answers img:hover {

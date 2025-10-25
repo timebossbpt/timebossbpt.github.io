@@ -11,7 +11,7 @@ export const API_CONFIG = {
     // número máximo de tentativas em caso de falha de fetch
     REQUEST_RETRIES: 2,
     UPDATE_INTERVAL: 1000,   // 1 segundo
-    RENDER_INTERVAL: 60000   // 1 minuto
+    RENDER_INTERVAL: 300000   // 5 minutos (was 1 minute) - reduced re-render frequency to avoid UI resets
 };
 
 // Configurações de som
@@ -226,8 +226,8 @@ export const BOSSES_DATA = [
     //     lvl : 200
     // }
     {
-        nome: "Hopi de<br>Lacinho<br>(Evento)", 
-        local: "Mais Frequentado Santuário do Abismo (AB1)<br><b>Outros Lugares:</b> AB3, Arma, Lab, Mina, Lost1, Ice2", 
+        nome: "Hopi de Lacinho (Evento)", 
+        local: "Mais Frequentado Santuário do Abismo (AB1) <br><b>Outros Lugares:</b> AB3, Arma, Lab, Mina, Lost1, Ice2", 
         horarios: [5,9,15,20,23],
         drop: ["Saco da Sorte(LÁ ELE) "],
         dano1: ["Não tem roleta"], 

@@ -431,11 +431,16 @@ class AppManager {
      * Renderiza cards dos bosses
      */
     renderBossCards(bosses, container) {
+        // preserve which bosses were expanded so we can restore state after re-render
+        const expandedNames = Array.from(container.querySelectorAll('.boss-card.expanded .compact-name'))
+            .map(el => el.textContent && el.textContent.trim()).filter(Boolean);
+
         container.innerHTML = '';
         const currentHour = getSaoPauloDate().getHours();
 
         bosses.forEach(boss => {
-            const card = this.createBossCard(boss, currentHour);
+            const isExpanded = expandedNames.includes(boss.nome);
+            const card = this.createBossCard(boss, currentHour, isExpanded);
             container.appendChild(card);
         });
     }
@@ -443,11 +448,15 @@ class AppManager {
     /**
      * Cria card de um boss
      */
-    createBossCard(boss, currentHour) {
+    createBossCard(boss, currentHour, isInitiallyExpanded = false) {
+        // Card principal (agora com comportamento de acordeão)
         const card = document.createElement('div');
-        card.className = 'boss-card';
+        card.className = 'boss-card ' + (isInitiallyExpanded ? 'expanded' : 'collapsed');
+        card.tabIndex = 0; // permite foco para acessibilidade
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-expanded', isInitiallyExpanded ? 'true' : 'false');
 
-        // Estrela de favorito (SVG para cor customizada)
+        // Favorito (mantém comportamento anterior)
         const favoriteStar = document.createElement('div');
         favoriteStar.className = 'favorite-star';
         const isFav = this.isFavorite(boss.nome);
@@ -455,40 +464,58 @@ class AppManager {
             ? `<svg width="24" height="24" viewBox="0 0 24 24" fill="#FFD700" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>`
             : `<svg width="24" height="24" viewBox="0 0 24 24" fill="#666" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.27 5.82 22 7 14.14l-5-4.87 6.91-1.01z"/></svg>`;
         favoriteStar.title = isFav ? 'Remover dos favoritos' : 'Adicionar aos favoritos';
-        favoriteStar.onclick = (e) => {
-            e.stopPropagation();
-            this.toggleFavorite(boss.nome);
-        };
+        favoriteStar.onclick = (e) => { e.stopPropagation(); this.toggleFavorite(boss.nome); };
         card.appendChild(favoriteStar);
 
-        // Header do boss
-        const header = document.createElement('div');
-        header.className = 'boss-header';
-        header.innerHTML = `
-            <img src="${boss.img}" alt="Imagem de ${boss.nome}" loading="lazy">
-            <h2>${boss.nome}</h2>
-            <img src="${boss.spaw}" alt="Mapa de ${boss.nome}" loading="lazy" class="boss-spawn-img">
+        // Compact header (essenciais)
+        const compact = document.createElement('div');
+        compact.className = 'boss-compact';
+        compact.innerHTML = `
+            <div class="boss-header-compact">
+                <img src="${boss.img}" alt="Imagem de ${boss.nome}" loading="lazy" class="compact-img">
+                <div class="compact-main">
+                    <h2 class="compact-name">${boss.nome}</h2>
+                    <div class="compact-meta">
+                        <span class="compact-time"><b>Horários:</b> ${boss.horarios.map(h => String(h).padStart(2,'0')+'hXX').join(', ')}</span>
+                        <span class="compact-location"><b>Local:</b> ${boss.local}</span>
+                    </div>
+                </div>
+                <!-- spawn image (minimap). Will be small in collapsed state and larger when card is expanded -->
+                <img src="${boss.spaw || ''}" alt="Minimap de ${boss.nome}" loading="lazy" class="boss-spawn-img" />
+                <div class="toggle-icon" aria-hidden="true">▾</div>
+            </div>
         `;
 
-        // Informações do boss
-        const info = document.createElement('div');
-        info.className = 'boss-info';
+        // Detalhes (inicialmente escondidos)
+        const details = document.createElement('div');
+        details.className = 'boss-details';
+        // reutiliza a função existente para montar seções dentro de details
+        this.addBossSections(details, boss);
 
-        const horariosString = boss.horarios.map(h => {
-            const formattedHour = String(h).padStart(2, '0') + 'hXX';
-            return h === currentHour ? `<span class="highlight">${formattedHour}</span>` : formattedHour;
-        }).join(', ');
+        // botão/ação de toggle: clique em qualquer parte do card
+        const toggle = (e) => {
+            const expanded = card.classList.toggle('expanded');
+            card.classList.toggle('collapsed', !expanded);
+            card.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            const icon = card.querySelector('.toggle-icon');
+            if (icon) icon.textContent = expanded ? '▴' : '▾';
+        };
 
-        info.innerHTML = `
-            <p><strong>Local:</strong> ${boss.local}</p>
-            <p><strong>Horários:</strong> ${horariosString}</p>
-        `;
+        card.addEventListener('click', toggle);
+        // teclado: Enter ou Space ativa toggle
+        card.addEventListener('keydown', (ev) => {
+            if (ev.key === 'Enter' || ev.key === ' ') {
+                ev.preventDefault();
+                toggle();
+            }
+        });
 
-        // Adiciona seções de drops e danos
-        this.addBossSections(info, boss);
+        card.appendChild(compact);
+        card.appendChild(details);
 
-        card.appendChild(header);
-        card.appendChild(info);
+    // Ensure toggle icon reflects initial expanded state
+    const initialIcon = card.querySelector('.toggle-icon');
+    if (initialIcon) initialIcon.textContent = isInitiallyExpanded ? '▴' : '▾';
 
         return card;
     }
