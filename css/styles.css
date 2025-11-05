@@ -432,10 +432,10 @@ h1 {
 }
 .compact-img { width:56px; height:56px; border-radius:8px; object-fit:cover; border:1px solid #333; border-radius: 50%;}
 .compact-main { flex: 1 1 auto; min-width: 0; }
-.compact-name { margin:0; font-size:1.1em; color:var(--text-accent); }
+.compact-name { margin:0; font-size:1.1em; color:#ffffff; }
 .compact-meta {
     font-size: 0.85em;
-    color: var(--text-secondary);
+    color: #ffffff;
     display: flex;
     flex-direction: column; /* stack time and location vertically */
     gap: 6px;
