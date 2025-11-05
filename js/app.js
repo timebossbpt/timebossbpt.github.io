@@ -280,18 +280,58 @@ class AppManager {
     }
 
     /**
-     * Busca dados dos servidores
+     * Busca dados dos servidores com cache
      */
-    async fetchServerTimes() {
+    async fetchServerTimes(forceRefresh = false) {
+        const CACHE_KEY = 'ptBossesServerData';
+        const CACHE_EXPIRY = API_CONFIG.FETCH_INTERVAL; // 10 minutos (600000ms)
+        
+        // Verifica cache primeiro
+        if (!forceRefresh) {
+            try {
+                const cached = localStorage.getItem(CACHE_KEY);
+                if (cached) {
+                    const { data, timestamp } = JSON.parse(cached);
+                    const now = Date.now();
+                    const age = now - timestamp;
+                    
+                    // Se o cache ainda é válido (menos de 10 minutos), usa ele
+                    if (age < CACHE_EXPIRY) {
+                        console.log(`💾 Usando dados do cache (idade: ${Math.round(age / 1000)}s)`);
+                        this.serverTimesData = data;
+                        this.updateSubserversDisplay();
+                        this.serverDataLoaded = true;
+                        this.updateCountdownTimer();
+                        return;
+                    } else {
+                        console.log(`⏰ Cache expirado (idade: ${Math.round(age / 1000)}s), buscando novos dados...`);
+                    }
+                }
+            } catch (error) {
+                console.warn('⚠️ Erro ao ler cache:', error);
+            }
+        }
+
         try {
             console.log('🔄 Carregando dados dos servidores...');
             this.serverDataLoaded = false;
 
-            // console.log('[fetchServerTimes] chamando API:', API_CONFIG.SHEET_URL);
             // usa helper com timeout e retries
             const response = await fetchWithTimeout(API_CONFIG.SHEET_URL, {}, API_CONFIG.REQUEST_TIMEOUT, API_CONFIG.REQUEST_RETRIES);
             const data = await response.json();
             this.serverTimesData = data;
+
+            // Salva no cache
+            try {
+                const cacheData = {
+                    data: data,
+                    timestamp: Date.now()
+                };
+                localStorage.setItem(CACHE_KEY, JSON.stringify(cacheData));
+                console.log('💾 Dados salvos no cache');
+            } catch (error) {
+                console.warn('⚠️ Erro ao salvar cache:', error);
+            }
 
             this.updateSubserversDisplay();
             this.serverDataLoaded = true;
@@ -300,6 +340,22 @@ class AppManager {
             console.log('✅ Dados dos servidores carregados');
         } catch (error) {
             console.error('❌ Erro ao carregar dados:', error);
+
+            // Tenta usar cache mesmo expirado em caso de erro
+            try {
+                const cached = localStorage.getItem(CACHE_KEY);
+                if (cached) {
+                    const { data } = JSON.parse(cached);
+                    console.log('🔄 Usando cache expirado devido a erro na requisição');
+                    this.serverTimesData = data;
+                    this.updateSubserversDisplay();
+                    this.serverDataLoaded = true;
+                    this.updateCountdownTimer();
+                    return;
+                }
+            } catch (cacheError) {
+                console.warn('⚠️ Erro ao ler cache de fallback:', cacheError);
+            }
 
             // Usa dados mock em caso de erro
             this.serverTimesData = this.getMockServerData();
@@ -476,13 +532,16 @@ class AppManager {
                 <div class="compact-main">
                     <h2 class="compact-name">${boss.nome}</h2>
                     <div class="compact-meta">
-                        <span class="compact-time"><b>Horários:</b> ${boss.horarios.map(h => String(h).padStart(2,'0')+'hXX').join(', ')}</span>
+                        <span class="compact-time"><b>Horários:</b> ${boss.horarios.map(h => {
+                            const formattedHour = String(h).padStart(2, '0') + 'hXX';
+                            return h === currentHour ? `<span class="highlight">${formattedHour}</span>` : formattedHour;
+                        }).join(', ')}</span>
                         <span class="compact-location"><b>Local:</b> ${boss.local}</span>
                     </div>
                 </div>
+                <div class="toggle-icon" aria-hidden="true">▾</div>
                 <!-- spawn image (minimap). Will be small in collapsed state and larger when card is expanded -->
                 <img src="${boss.spaw || ''}" alt="Minimap de ${boss.nome}" loading="lazy" class="boss-spawn-img" />
-                <div class="toggle-icon" aria-hidden="true">▾</div>
             </div>
         `;
 
@@ -975,9 +1034,9 @@ class AppManager {
             content.classList.add('active');
         }
 
-        // Se mudou para bosses, atualiza dados
+        // Se mudou para bosses, atualiza dados (sem forçar refresh, usa cache se disponível)
         if (tabName === 'bosses') {
-            this.fetchServerTimes();
+            this.fetchServerTimes(false);
             this.renderBosses();
         }
         // Se mudou para builds, renderiza builds

@@ -152,23 +152,6 @@ h1 {
     color: var(--text-highlight);
 }
 
-.favorites-filter {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-accent);
-    color: var(--text-accent);
-    padding: 10px 15px;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.favorites-filter.active {
-    background: var(--text-accent);
-    color: var(--bg-primary);
-}
-
 /* Profile Panel Styles */
 .profile-panel {
     position: fixed;
@@ -379,22 +362,6 @@ h1 {
     color: #FFD700;
 }
 
-.sound-toggle {
-    margin-top: 20px;
-    padding: 10px 15px;
-    border: 1px solid #4CAF50;
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    text-align: center;
-}
-
-.sound-toggle:hover {
-    background-color: #2a2a2a;
-}
-
 .boss-card {
     background-color: var(--bg-secondary);
     border: 1px solid var(--border-color);
@@ -425,47 +392,95 @@ h1 {
 
 .boss-header-compact {
     display: flex;
-    align-items: flex-start; /* align name/meta to top so spawn sits beneath neatly */
+    align-items: flex-start;
     gap: 12px;
     width: 100%;
-    flex-wrap: wrap; /* allow the spawn image to wrap to a new row beneath the text */
+    flex-wrap: wrap;
+    position: relative;
 }
-.compact-img { width:56px; height:56px; border-radius:8px; object-fit:cover; border:1px solid #333; border-radius: 50%;}
-.compact-main { flex: 1 1 auto; min-width: 0; }
-.compact-name { margin:0; font-size:1.1em; color:#ffffff; }
+.compact-img { 
+    width: 48px; 
+    height: 48px; 
+    border-radius: 50%;
+    object-fit: cover; 
+    border: 2px solid #4CAF50;
+    flex-shrink: 0;
+}
+.compact-main { 
+    flex: 1 1 auto; 
+    min-width: 0; 
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.compact-name { 
+    margin: 0; 
+    font-size: 1.1em; 
+    color: #ffffff; 
+    line-height: 1.2;
+}
 .compact-meta {
     font-size: 0.85em;
     color: #ffffff;
     display: flex;
-    flex-direction: column; /* stack time and location vertically */
-    gap: 6px;
+    flex-direction: column;
+    gap: 4px;
 }
-.compact-time { font-weight:600; }
-.compact-location { opacity:0.9; }
+.compact-time { font-weight: 600; }
+.compact-location { opacity: 0.9; }
 
-/* Layout: place spawn minimap below name/time in compact header (not to the right) */
+/* Layout: place spawn minimap below name/time in compact header (only when expanded) */
 
 .boss-header-compact .boss-spawn-img {
-    order: 2; /* place after the text block when wrapping */
-    /* allow the spawn image to grow to the full width of the available row */
+    order: 10; /* place after all other elements when wrapping */
     flex: 1 1 100%;
     width: 100%;
-    max-width: 640px; /* reasonable cap to avoid overly large maps on very wide screens */
+    max-width: 500px;
     box-sizing: border-box;
-    margin-top: 8px;
-    align-self: stretch; /* stretch to fill the row under the name/meta */
+    margin-top: 12px;
+    align-self: center;
+    border-radius: 8px;
+    border: 2px solid #4CAF50;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* On small screens let the spawn image scale down to avoid overflow */
 @media (max-width: 600px) {
     .boss-header-compact .boss-spawn-img {
-        width: 100%;
-        max-width: 320px;
-        align-self: center;
+        max-width: 280px;
+    }
+    
+    .compact-img {
+        width: 44px;
+        height: 44px;
     }
 }
 
-.toggle-icon { font-size:1.2em; color:#bbb; margin-left:8px; transition: transform 0.25s ease; }
+.toggle-icon { 
+    font-size: 1.4em; 
+    color: #4CAF50; 
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+    align-self: center;
+    cursor: pointer;
+    padding: 4px;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    border-radius: 4px;
+}
+
+.toggle-icon:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #90ee90;
+}
+
+.boss-card.expanded .toggle-icon {
+    transform: rotate(180deg);
+}
 
 .boss-details {
     width:100%;
@@ -490,9 +505,13 @@ h1 {
 .boss-card:focus { outline: 3px solid rgba(76,175,80,0.25); box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
 
 @media (max-width: 600px) {
-    .compact-time { display:block; }
-    .compact-location { display:block; color:#999; font-size:0.85em; }
-    .compact-img { width:48px; height:48px;border-radius: 50%; }
+    .compact-time { display: block; }
+    .compact-location { display: block; color: #999; font-size: 0.85em; }
+    .toggle-icon {
+        font-size: 1.2em;
+        min-width: 28px;
+        height: 28px;
+    }
 }
 
 .boss-card:hover {
@@ -1883,8 +1902,6 @@ li:hover {
     }
 }
 
-/* (duplicated ad container block removed - consolidated earlier in file) */
-
 /* ===== ESTILOS PARA ANÚNCIOS REAIS ===== */
 .adsense-container ins {
     display: block;
@@ -1940,89 +1957,6 @@ li:hover {
     margin: 5px 0;
     border-radius: 5px;
     border-left: 3px solid #FFD700;
-}
-
-/* ===== SEÇÃO DE ANÚNCIOS MOBILE ===== */
-.mobile-ads-section {
-    display: none; /* Oculto por padrão */
-    background: var(--bg-secondary);
-    border-top: 2px solid var(--border-color);
-    margin-top: 30px;
-    padding: 20px 0;
-}
-
-.mobile-ads-container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 0 15px;
-    text-align: center;
-}
-
-.mobile-ads-container h3 {
-    color: var(--text-accent);
-    margin-bottom: 20px;
-    font-size: 1.2em;
-}
-
-.mobile-banner-ad {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.mobile-banner-ad .ad-placeholder {
-    min-height: 100px;
-    background: var(--bg-tertiary);
-    border-radius: 8px;
-}
-
-.mobile-ads-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.mobile-square-ad .ad-placeholder {
-    min-height: 200px;
-    background: var(--bg-tertiary);
-    border-radius: 8px;
-}
-
-/* Mostrar anúncios mobile apenas em telas pequenas */
-@media (max-width: 768px) {
-    .mobile-ads-section {
-        display: block;
-    }
-    
-    /* Permitir que sidebars sejam exibidas em mobile junto com mobile-ads-section */
-}
-
-@media (max-width: 480px) {
-    .sidebar-ad {
-        width: calc(50% - 5px); /* Dois anúncios por linha em mobile pequeno */
-        min-height: 160px;
-        min-width: 140px;
-    }
-    
-    .sidebar-content {
-        gap: 8px;
-        padding: 8px 0;
-        flex-wrap: wrap; /* Permite quebra de linha em telas muito pequenas */
-    }
-    
-    /* Mobile ads grid */
-    .mobile-ads-grid {
-        grid-template-columns: 1fr; /* Uma coluna no mobile pequeno */
-        gap: 10px;
-    }
-    
-    .mobile-square-ad .ad-placeholder {
-        min-height: 250px;
-    }
-    
-    .mobile-banner-ad .ad-placeholder {
-        min-height: 80px;
-    }
 }
 
 /* ===== MELHORIAS NO CONTAINER PRINCIPAL ===== */
