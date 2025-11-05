@@ -225,15 +225,51 @@ export const BOSSES_DATA = [
     //     spaw : "img/bosses/maps/abismo-do-mar-oposto.png",
     //     lvl : 200
     // }
+    // {
+    //     nome: "Hopi de Lacinho (Evento)", 
+    //     local: "Mais Frequentado Santuário do Abismo (AB1) <br><b>Outros Lugares:</b> AB3, Arma, Lab, Mina, Lost1, Ice2", 
+    //     horarios: [5,9,15,20,23],
+    //     drop: ["Saco da Sorte(LÁ ELE) "],
+    //     dano1: ["Não tem roleta"], 
+    //     dano2: ["Abaixo de 360 de dano somente Saco da Sorte(LÁ ELE) "], 
+    //     dano3: ["2x Gravata"],
+    //     img: "img/bosses/miniaturas/hopi_gravata.webp",
+    //     spaw : "img/bosses/maps/abismo-do-mar-oposto.png",
+    //     lvl : 200
+    // }
     {
-        nome: "Hopi de Lacinho (Evento)", 
-        local: "Mais Frequentado Santuário do Abismo (AB1) <br><b>Outros Lugares:</b> AB3, Arma, Lab, Mina, Lost1, Ice2", 
-        horarios: [5,9,15,20,23],
-        drop: ["Saco da Sorte(LÁ ELE) "],
-        dano1: ["Não tem roleta"], 
-        dano2: ["Abaixo de 360 de dano somente Saco da Sorte(LÁ ELE) "], 
-        dano3: ["2x Gravata"],
-        img: "img/bosses/miniaturas/hopi_gravata.webp",
+        nome: "Mago Negro Igolano", 
+        local: "Ricarten Dimensão do Caos (Mini SOD)", 
+        horarios: [3,9,15,21],
+        drop: ["Nada"],
+        dano1: ["Abaixo de 249 de dano Não tem roleta"],
+        dano2: ["Essência do Caos, Essência do Agin(S), Asa de Babel(Tuer5), Itens 13x/14x"], 
+        dano3: ["Essência do Caos, Essência do Agin(S), Asa de Babel(Tuer5), Itens 13x/14x"],
+        img: "img/bosses/miniaturas/mini_mago_negro.webp",
+        spaw : "img/bosses/maps/abismo-do-mar-oposto.png",
+        lvl : 200
+    },
+    {
+        nome: "Cabeça de Abóbora Demoníaca", 
+        local: "Terra Maldita,Ruinen,Castelo dos Perdidos e Refúgio dos Anciões", 
+        horarios: [11,22],
+        drop: ["Sheltons"],
+        dano1: ["1x Cabeça de Abóbora (3h)"],
+        dano2: ["1x Cabeça de Abóbora (3h)"], 
+        dano3: ["1x Cabeça de Abóbora (3h)"],
+        img: "img/bosses/miniaturas/mini_mago_negro.webp",
+        spaw : "img/bosses/maps/abismo-do-mar-oposto.png",
+        lvl : 198
+    },
+     {
+        nome: "Morgana", 
+        local: "Estrada,AB1,AB2,AB3", 
+        horarios: [5,11,17,23],
+        drop: ["Drena Almas (1D), Presa Vampírica (1D), Super Pedra do Aging, Ouro Mágico Superior, Caixa Priston (1D), Poção Redutora de RES (1D), Poção Redutora de Mana (1D), Força Tera (3H), Força Mágica Tera (3H), Fênix (1D), Poção de XP 100% (1D), Baú de Defesa e Ataque LVL 123, Essência do Aging (I), Baú de Defesa e Ataque LVL 130, Essência do Aging (A), Essência do Aging (S), Lua Cheia (1H), Super Lua (1H), Poção Cabeça de Abóbora (3H), Benção do Carneiro (3H) ou Abóbora do Halloween"],
+        dano1: ["1x Cabeça de Abóbora (3h)"],
+        dano2: ["1x Cabeça de Abóbora (3h)"], 
+        dano3: ["1x Cabeça de Abóbora (3h)"],
+        img: "img/bosses/miniaturas/mini_mago_negro.webp",
         spaw : "img/bosses/maps/abismo-do-mar-oposto.png",
         lvl : 200
     }
