@@ -281,6 +281,27 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Evento: Halloween Idhas - abre PDF -->
+                    <div class="event-card">
+                        <div class="event-header">                            
+                            <div>
+                                <h2>Halloween Idhas Resumo</h2>
+                                <p style="color: #90ee90; font-size: 1.1em; margin: 5px 0;">📍 IDHAS - Evento Especial</p>
+                            </div>
+                        </div>
+
+                        <div class="event-info">
+                            <p>Confira o guia completo do evento (PDF):</p>
+                            <div class="event-actions">
+                                <!-- Use URL encoded (espaços viram %20). Abre em nova aba com segurança -->
+                                <a href="img/HALLOWEEN%20IDHAS%20.pdf" target="_blank" rel="noopener noreferrer" class="action-btn">Abrir PDF</a>
+                                <!-- Visualizar em modal embutido -->
+                                <button type="button" class="action-btn" onclick="openPdfModal('img/HALLOWEEN%20IDHAS%20.pdf')">Visualizar</button>
+                            </div>
+                           
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -515,7 +536,22 @@
     </div>
 </div>
 
-<!-- Scripts -->
+        <!-- PDF Preview Modal (abre o PDF dentro da página) -->
+        <div class="help-modal-overlay" id="pdf-modal-overlay" style="display:none;" onclick="closePdfModal()">
+            <div class="help-modal pdf-modal" onclick="event.stopPropagation()" style="max-width:1000px; width:95%; padding:10px;">
+                <button class="help-close" onclick="closePdfModal()">✕</button>
+                <h3 style="margin-top:6px; color:var(--text-accent);">Visualização: Guia Halloween Idhas</h3>
+                <div id="pdf-modal-content" style="height:70vh; background:#fff; border-radius:6px; overflow:hidden;">
+                    <iframe id="pdf-viewer" src="" style="width:100%; height:100%; border:none;"></iframe>
+                </div>
+                <div style="margin-top:8px; text-align:right;">
+                    <a id="pdf-open-native" href="#" target="_blank" rel="noopener noreferrer" class="action-btn" style="margin-right:8px;">Abrir em nova aba</a>
+                    <button class="action-btn" onclick="closePdfModal()">Fechar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scripts -->
 <script type="module" src="js/main.js"></script>
 
 
@@ -558,6 +594,31 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+</script>
+
+<script>
+// Funções para abrir/fechar o modal de PDF
+function openPdfModal(url) {
+    const overlay = document.getElementById('pdf-modal-overlay');
+    const viewer = document.getElementById('pdf-viewer');
+    const nativeLink = document.getElementById('pdf-open-native');
+    if (!overlay || !viewer) return;
+    // define a src do iframe (use a URL codificada)
+    viewer.src = url;
+    if (nativeLink) nativeLink.href = url;
+    overlay.style.display = 'flex';
+    // centraliza o modal (caso CSS não faça)
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+}
+
+function closePdfModal() {
+    const overlay = document.getElementById('pdf-modal-overlay');
+    const viewer = document.getElementById('pdf-viewer');
+    if (!overlay || !viewer) return;
+    viewer.src = '';
+    overlay.style.display = 'none';
+}
 </script>
 
 <footer class="site-footer">

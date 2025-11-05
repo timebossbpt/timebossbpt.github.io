@@ -257,8 +257,8 @@ export const BOSSES_DATA = [
         dano1: ["1x Cabeça de Abóbora (3h)"],
         dano2: ["1x Cabeça de Abóbora (3h)"], 
         dano3: ["1x Cabeça de Abóbora (3h)"],
-        img: "img/bosses/miniaturas/mini_mago_negro.webp",
-        spaw : "img/bosses/maps/abismo-do-mar-oposto.png",
+        img: "img/bosses/miniaturas/mini_abobora.webp",
+        spaw : "img/bosses/maps/cabeca-abobora.png",
         lvl : 198
     },
      {
@@ -269,9 +269,9 @@ export const BOSSES_DATA = [
         dano1: ["1x Cabeça de Abóbora (3h)"],
         dano2: ["1x Cabeça de Abóbora (3h)"], 
         dano3: ["1x Cabeça de Abóbora (3h)"],
-        img: "img/bosses/miniaturas/mini_mago_negro.webp",
+        img: "img/bosses/miniaturas/mini_morgana.webp",
         spaw : "img/bosses/maps/abismo-do-mar-oposto.png",
-        lvl : 200
+        lvl : 199
     }
 ];
 
