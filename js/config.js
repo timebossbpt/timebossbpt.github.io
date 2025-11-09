@@ -54,7 +54,7 @@ export const BOSSES_DATA = [
         dano2: ["Não tem roleta"], 
         dano3: ["Não tem roleta"],
         img: "img/bosses/miniaturas/mini_babel.webp",
-        spaw : "img/bosses/maps/estrada-de-ferro-do-caos.webp",
+        spaw : "img/bosses/maps/estrada-de-ferro-do-caos.png",
         lvl : 100
     },
     {
@@ -66,7 +66,7 @@ export const BOSSES_DATA = [
         dano2: ["Não tem roleta"], 
         dano3: ["Não tem roleta"],
         img: "img/bosses/miniaturas/mini_babel.webp",
-        spaw : "img/bosses/maps/coracao-de-perum.webp",
+        spaw : "img/bosses/maps/coracao-de-perum.png",
         lvl : 100
     },
     {
@@ -78,7 +78,7 @@ export const BOSSES_DATA = [
         dano2: ["Não tem roleta"], 
         dano3: ["Não tem roleta"],
         img: "img/bosses/miniaturas/mini_furia.webp",
-        spaw : "img/bosses/maps/templo-maldito-3.webp",
+        spaw : "img/bosses/maps/templo-maldito-3.png",
         lvl : 105
     },
     {
@@ -90,7 +90,7 @@ export const BOSSES_DATA = [
         dano2: ["Não tem roleta"], 
         dano3: ["Não tem roleta"],
         img: "img/bosses/miniaturas/mini_valento.webp",
-        spaw : "img/bosses/maps/vale-gallubia.webp",
+        spaw : "img/bosses/maps/vale-gallubia.png",
         lvl : 110
     },
     {
@@ -102,7 +102,7 @@ export const BOSSES_DATA = [
         dano2: ["Não tem roleta"], 
         dano3: ["Não tem roleta"],
         img: "img/bosses/miniaturas/mini_kelvezu.webp",
-        spaw : "img/bosses/maps/covil-do-kelvezu.webp",
+        spaw : "img/bosses/maps/covil-do-kelvezu.png",
         lvl : 115
     },
     {
@@ -114,7 +114,7 @@ export const BOSSES_DATA = [
         dano2: ["Não tem roleta"], 
         dano3: ["Não tem roleta"],
         img: "img/bosses/miniaturas/mini_mokova.webp",
-        spaw : "img/bosses/maps/templo-perdido.webp",
+        spaw : "img/bosses/maps/templo-perdido.png",
         lvl : 120
     },
     {
@@ -126,7 +126,7 @@ export const BOSSES_DATA = [
         dano2: ["Não tem roleta"], 
         dano3: ["Não tem roleta"],
         img: "img/bosses/miniaturas/mini_shy.webp",
-        spaw : "img/bosses/maps/torre-sem-fim-3-andar.webp",
+        spaw : "img/bosses/maps/torre-sem-fim-3-andar.png",
         lvl : 125
     },
     {
@@ -138,7 +138,7 @@ export const BOSSES_DATA = [
         dano2: ["Não tem roleta"], 
         dano3: ["Não tem roleta"],
         img: "img/bosses/miniaturas/mini_tulla.webp",
-        spaw : "img/bosses/maps/mina-de-gelo.webp",
+        spaw : "img/bosses/maps/mina-de-gelo.png",
         lvl : 130
     },
     {
@@ -150,7 +150,7 @@ export const BOSSES_DATA = [
         dano2: ["Pergaminho de Invocação do Draxos (10%), Runas Superiores (26%), Buff Especial (3H) (20%), Pergaminho de Invocação de Boss (Mokova, Shy ou Tulla) (15%), Itens de Ataque level 118 (17%), 33.766.200.000 pontos de Experiência (5%) ou Essências do Aging (I), (A) ou (S) (10%)."],
         dano3: ["Pergaminho de Invocação do Draxos (10%), Caixa Priston (3H) (8%), Pergaminho de Invocação de Boss (Mokova, Shy ou Tulla) (15%), Itens de Defesa level 118 (21%), Itens de Ataque level 118 (21%), Essência do Draxos (5%), 41.496.000.000 pontos de Experiência (5%) ou Essências do Aging (I), (A) ou (S) (10%)."],
         img: "img/bosses/miniaturas/mini_draxos.webp",
-        spaw : "img/bosses/maps/laboratorio-secreto.webp",
+        spaw : "img/bosses/maps/laboratorio-secreto.png",
         lvl : 135
     },
     {
@@ -162,7 +162,7 @@ export const BOSSES_DATA = [
         dano2: ["Pergaminho de Invocação do Greedy (10%), Runas Superiores (26%), Buff Especial (3H) (20%), Pergaminho de Invocação de Boss (Tulla, Shy ou Draxos) (15%), Itens de Ataque level 123 (17%), 41.496.000.000 pontos de Experiência (5%) ou Essências do Aging (I), (A) ou (S) (2%)."],
         dano3: ["Pergaminho de Invocação do Greedy (10%), Pergaminho de Invocação de Boss (Shy, Tulla ou Draxos) (15%), Essências do Aging (I), (A) ou (S) (10%), Itens de Defesa level 123 (21%), Itens de Ataque level 123 (21%), Caixa Priston (3H) (8%), Essência do Greedy (5%), ou 69.949.440.000 pontos de Experiência (5%)."],
         img: "img/bosses/miniaturas/mini_greedy.webp",
-        spaw : "img/bosses/maps/arma-antiga.webp",
+        spaw : "img/bosses/maps/arma-antiga.png",
         lvl : 140
     },
     {
@@ -174,7 +174,7 @@ export const BOSSES_DATA = [
         dano2: ["Pergaminho de Invocação Espectro do Midranda (10%), Runas Superiores (26%), Buff Especial (3H) (20%), Pergaminho de Invocação de Boss (Draxos, Tulla ou Greddy) (15%), Itens de Ataque level 130 (17%), 69.959.440.000 pontos de Experiência (5%) ou Essências do Aging (I), (A) ou (S) (2%)."],
         dano3: ["Pergaminho de Invocação Espectro do Midranda (10%), Pergaminho de Invocação de Boss (Greedy, Tulla ou Draxos) (15%), Essências do Aging (I), (A) ou (S) (10%), Itens de Defesa level 130 (21%), Itens de Ataque level 130 (21%), Caixa Priston (3H) (8%), Essências do Babel, Fúria, Valento, Kelvezu, Mokova, Shy, Tulla, Draxos ou Greedy (5%), ou 84.779.847.000 pontos de Experiência (5%)."],
         img: "img/bosses/miniaturas/mini_espectro.webp",
-        spaw : "img/bosses/maps/estrada-sombria.webp",
+        spaw : "img/bosses/maps/estrada-sombria.png",
         lvl : 150
     },
     {
@@ -186,7 +186,7 @@ export const BOSSES_DATA = [
         dano2: ["Pergaminho de Invocação Espectro do Midranda (20%), Runas Superiores (26%), Buff Especial (3H) (15%), Pergaminho de Invocação de Boss (Draxos ou Greddy) (15%), Itens de Ataque level 140 (17%), 84.779.847.000 pontos de Experiência (5%) ou Essências do Aging (I), (A) ou (S) (2%)."],
         dano3: ["Pergaminho de Invocação Espectro do Midranda (10%), Pergaminho de Invocação de Boss (Greedy ou Draxos) (15%), Essências do Aging (I), (A) ou (S) (15%), Itens de Defesa level 140 (21%), Itens de Ataque level 140 (21%), Caixa Priston (3H) (8%), Essências do Yagditha (5%), ou 135.933.805.500 pontos de Experiência (5%)."],
         img: "img/bosses/miniaturas/mini_yagditha.webp",
-        spaw : "img/bosses/maps/abismo-do-mar.webp",
+        spaw : "img/bosses/maps/abismo-do-mar.png",
         lvl : 160
     },
     {
@@ -198,7 +198,7 @@ export const BOSSES_DATA = [
         dano2: ["Pergaminho de Invocação Espectro do Midranda (20%), Runas Superiores (26%), Buff Especial (3H) (15%), Pergaminho de Invocação de Boss (Draxos ou Greddy) (15%), Itens de Ataque level 140 (17%), 135.933.805.500 pontos de Experiência (5%) ou Essências do Aging (I), (A) ou (S) (2%)."],
         dano3: ["Pergaminho de Invocação Espectro do Midranda (10%), Pergaminho de Invocação de Boss (Greedy ou Draxos) (15%), Essências do Aging (I), (A) ou (S) (15%), Itens de Defesa level 140 (21%), Itens de Ataque level 140 (21%), Caixa Priston (3H) (8%), Essências do Babel, Valento, Kelvezu, Fúria, Mokova, Tulla, Draxos, Greedy e Yagditha (5%), ou 150.878.802.000 pontos de Experiência (5%)."],
         img: "img/bosses/miniaturas/mini_snow.webp",
-        spaw : "img/bosses/maps/abismo-do-mar-congelado.webp",
+        spaw : "img/bosses/maps/abismo-do-mar-congelado.png",
         lvl : 160
     },
     {
@@ -210,7 +210,7 @@ export const BOSSES_DATA = [
         dano2: ["Pergaminho de Invocação Espectro do Midranda (20%), Runas Superiores (26%), Buff Especial (3H) (15%), Pergaminho de Invocação de Boss (Yagditha ou Greddy) (15%), Itens de Ataque level 140 (17%), 150.878.802.000 pontos de Experiência (5%) ou Essências do Aging (I), (A) ou (S) (2%)."],
         dano3: ["Pergaminho de Invocação Espectro do Midranda (10%), Pergaminho de Invocação de Boss (Greedy ou Yagditha) (15%), Essências do Aging (I), (A) ou (S) (15%), Itens de Defesa level 140 (21%), Itens de Ataque level 140 (21%), Caixa Priston (3H) (8%), Essência do Midranda (5%), ou 199.600.125.000 pontos de Experiência (5%)."],
         img: "img/bosses/miniaturas/mini_midrandaress.webp",
-        spaw : "img/bosses/maps/santuario-do-abismo.webp",
+        spaw : "img/bosses/maps/santuario-do-abismo.png",
         lvl : 180
     },
     // {
@@ -222,7 +222,7 @@ export const BOSSES_DATA = [
     //     dano2: ["Abaixo de 360 de dano Não tem roleta acima +531.925.821.428 de Experiência "], 
     //     dano3: ["+531.925.821.428 de Experiência"],
     //     img: "img/bosses/miniaturas/mini_guardiao_elite.webp",
-    //     spaw : "img/bosses/maps/abismo-do-mar-oposto.webp",
+    //     spaw : "img/bosses/maps/abismo-do-mar-oposto.png",
     //     lvl : 200
     // }
     // {
@@ -234,7 +234,7 @@ export const BOSSES_DATA = [
     //     dano2: ["Abaixo de 360 de dano somente Saco da Sorte(LÁ ELE) "], 
     //     dano3: ["2x Gravata"],
     //     img: "img/bosses/miniaturas/hopi_gravata.webp",
-    //     spaw : "img/bosses/maps/abismo-do-mar-oposto.webp",
+    //     spaw : "img/bosses/maps/abismo-do-mar-oposto.png",
     //     lvl : 200
     // }
     {
@@ -246,7 +246,7 @@ export const BOSSES_DATA = [
         dano2: ["Essência do Caos, Essência do Agin(S), Asa de Babel(Tuer5), Itens 13x/14x"], 
         dano3: ["Essência do Caos, Essência do Agin(S), Asa de Babel(Tuer5), Itens 13x/14x"],
         img: "img/bosses/miniaturas/mini_mago_negro.webp",
-        spaw : "img/bosses/maps/ric.webp",
+        spaw : "img/bosses/maps/ric.png",
         lvl : 200
     },
     {
@@ -258,7 +258,7 @@ export const BOSSES_DATA = [
         dano2: ["1x Cabeça de Abóbora (3h)"], 
         dano3: ["1x Cabeça de Abóbora (3h)"],
         img: "img/bosses/miniaturas/mini_abobora.webp",
-        spaw : "img/bosses/maps/cabeca-abobora.webp",
+        spaw : "img/bosses/maps/cabeca-abobora.png",
         lvl : 198
     },
      {
@@ -270,7 +270,7 @@ export const BOSSES_DATA = [
         dano2: ["1x Cabeça de Abóbora (3h)"], 
         dano3: ["1x Cabeça de Abóbora (3h)"],
         img: "img/bosses/miniaturas/mini_morgana.webp",
-        spaw : "img/bosses/maps/where.webp",
+        spaw : "img/bosses/maps/where.png",
         lvl : 199
     }
 ];
