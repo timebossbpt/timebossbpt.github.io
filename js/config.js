@@ -205,13 +205,25 @@ export const BOSSES_DATA = [
         nome: "Midranda<br>Ressurgido", 
         local: "Santuário do Abismo (AB3)", 
         horarios: [19],
-        drop: ["Itens do mapa, Essência do Midranda e Receita de Relíquias (4,80% de chance), e Brinco do Midranda (Alfa, Beta, Gama e Zeta. 0,16% de chance)."],
+        drop: ["Itens do mapa, Essência do Midranda e Receita de Relíquias (4,80% de chance), e Brinco do Midranda (Alfa, Beta, Gama. 0,16% de chance)."],
         dano1: ["3x Sol (45%), 3x Meteoritos Idetas (12%), Runas Superiores (38%) ou Pergaminho de Invocação de Boss (Greedy, Espectro do Midranda ou Yagditha) (5%)."],
         dano2: ["Pergaminho de Invocação Espectro do Midranda (20%), Runas Superiores (26%), Buff Especial (3H) (15%), Pergaminho de Invocação de Boss (Yagditha ou Greddy) (15%), Itens de Ataque level 140 (17%), 150.878.802.000 pontos de Experiência (5%) ou Essências do Aging (I), (A) ou (S) (2%)."],
         dano3: ["Pergaminho de Invocação Espectro do Midranda (10%), Pergaminho de Invocação de Boss (Greedy ou Yagditha) (15%), Essências do Aging (I), (A) ou (S) (15%), Itens de Defesa level 140 (21%), Itens de Ataque level 140 (21%), Caixa Priston (3H) (8%), Essência do Midranda (5%), ou 199.600.125.000 pontos de Experiência (5%)."],
         img: "img/bosses/miniaturas/mini_midrandaress.webp",
         spaw : "img/bosses/maps/santuario-do-abismo.webp",
         lvl : 180
+    },
+    {
+        nome: "Dama Flamejante", 
+        local: "Coração de Fogo (CF)", 
+        horarios: [22],
+        drop: ["Itens do mapa, Bracelete da Dama (0,08% de chance), Itens Verthex (0,08% de chance)"],
+        dano1: ["3x Chocolate Branco (28%), 3x Pirulito (28%), 2x Força Ordo (19%) 2x Força Mágica Ordo (19%) ou Pergaminho de Invocação de Boss (Greedy, Espectro do Midranda ou Yagditha) (6%)."],
+        dano2: ["Pergaminho de Invocação de Boss (Greedy, Espectro do Midranda ou Yagditha) (20%), 2x Força Vita (13%), 2x Força Mágica Vita (13%), Buff Especial (3H) (20%), Itens de Ataque level 165 (7%), Cápsula Ígnea (20%), 199.600.125.000 pontos de Experiência (5%) ou Essências do Aging (I), (A) ou (S) (2%)."],
+        dano3: ["Pergaminho de Invocação de Boss (Yagditha, Greedy ou Espectro do Midranda) (20%), Cápsula Ígnea (20%), Essências do Aging (I), (A) ou (S) (15%), Itens de Defesa level 165 (7%), Itens de Ataque level 165 (7%), Caixa Priston (3H) (13%) ou 265.962.910.714 pontos de Experiência (12%)."],
+        img: "img/bosses/miniaturas/mini_dama.webp",
+        spaw : "img/bosses/maps/coracao-de-fogo.webp",
+        lvl : 190
     },
     // {
     //     nome: "Guardião<br>de Elite<br>(Evento)", 
@@ -237,42 +249,42 @@ export const BOSSES_DATA = [
     //     spaw : "img/bosses/maps/abismo-do-mar-oposto.webp",
     //     lvl : 200
     // }
-    {
-        nome: "Mago Negro Igolano", 
-        local: "Ricarten Dimensão do Caos (Mini SOD)", 
-        horarios: [3,9,15,21],
-        drop: ["Nada"],
-        dano1: ["Abaixo de 249 de dano Não tem roleta"],
-        dano2: ["Essência do Caos, Essência do Agin(S), Asa de Babel(Tuer5), Itens 13x/14x"], 
-        dano3: ["Essência do Caos, Essência do Agin(S), Asa de Babel(Tuer5), Itens 13x/14x"],
-        img: "img/bosses/miniaturas/mini_mago_negro.webp",
-        spaw : "img/bosses/maps/ric.webp",
-        lvl : 200
-    },
-    {
-        nome: "Cabeça de Abóbora Demoníaca", 
-        local: "Terra Maldita,Ruinen,Castelo dos Perdidos e Refúgio dos Anciões", 
-        horarios: [11,22],
-        drop: ["Sheltons"],
-        dano1: ["1x Cabeça de Abóbora (3h)"],
-        dano2: ["1x Cabeça de Abóbora (3h)"], 
-        dano3: ["1x Cabeça de Abóbora (3h)"],
-        img: "img/bosses/miniaturas/mini_abobora.webp",
-        spaw : "img/bosses/maps/cabeca-abobora.webp",
-        lvl : 198
-    },
-     {
-        nome: "Morgana", 
-        local: "Estrada,AB1,AB2,AB3", 
-        horarios: [5,11,17,23],
-        drop: ["Drena Almas (1D), Presa Vampírica (1D), Super Pedra do Aging, Ouro Mágico Superior, Caixa Priston (1D), Poção Redutora de RES (1D), Poção Redutora de Mana (1D), Força Tera (3H), Força Mágica Tera (3H), Fênix (1D), Poção de XP 100% (1D), Baú de Defesa e Ataque LVL 123, Essência do Aging (I), Baú de Defesa e Ataque LVL 130, Essência do Aging (A), Essência do Aging (S), Lua Cheia (1H), Super Lua (1H), Poção Cabeça de Abóbora (3H), Benção do Carneiro (3H) ou Abóbora do Halloween"],
-        dano1: ["1x Cabeça de Abóbora (3h)"],
-        dano2: ["1x Cabeça de Abóbora (3h)"], 
-        dano3: ["1x Cabeça de Abóbora (3h)"],
-        img: "img/bosses/miniaturas/mini_morgana.webp",
-        spaw : "img/bosses/maps/where.webp",
-        lvl : 199
-    }
+    // {
+    //     nome: "Mago Negro Igolano", 
+    //     local: "Ricarten Dimensão do Caos (Mini SOD)", 
+    //     horarios: [3,9,15,21],
+    //     drop: ["Essência do Caos, Itens 13x e 14x, Essência do Agin(S), Asa de Babel(Tuer5)"],
+    //     dano1: ["Abaixo de 249 de dano Não tem roleta"],
+    //     dano2: ["Essência do Caos"], 
+    //     dano3: ["Essência do Caos"],
+    //     img: "img/bosses/miniaturas/mini_mago_negro.webp",
+    //     spaw : "img/bosses/maps/ric.webp",
+    //     lvl : 200
+    // },
+    // {
+    //     nome: "Cabeça de Abóbora Demoníaca", 
+    //     local: "Terra Maldita,Ruinen,Castelo dos Perdidos e Refúgio dos Anciões", 
+    //     horarios: [11,22],
+    //     drop: ["Sheltons"],
+    //     dano1: ["1x Cabeça de Abóbora (3h)"],
+    //     dano2: ["1x Cabeça de Abóbora (3h)"], 
+    //     dano3: ["1x Cabeça de Abóbora (3h)"],
+    //     img: "img/bosses/miniaturas/mini_abobora.webp",
+    //     spaw : "img/bosses/maps/cabeca-abobora.webp",
+    //     lvl : 198
+    // },
+    // {
+    //     nome: "Morgana", 
+    //     local: "Estrada,AB1,AB2,AB3", 
+    //     horarios: [5,11,17,23],
+    //     drop: ["Drena Almas (1D), Presa Vampírica (1D), Super Pedra do Aging, Ouro Mágico Superior, Caixa Priston (1D), Poção Redutora de RES (1D), Poção Redutora de Mana (1D), Força Tera (3H), Força Mágica Tera (3H), Fênix (1D), Poção de XP 100% (1D), Baú de Defesa e Ataque LVL 123, Essência do Aging (I), Baú de Defesa e Ataque LVL 130, Essência do Aging (A), Essência do Aging (S), Lua Cheia (1H), Super Lua (1H), Poção Cabeça de Abóbora (3H), Benção do Carneiro (3H) ou Abóbora do Halloween"],
+    //     dano1: ["1x Cabeça de Abóbora (3h)"],
+    //     dano2: ["1x Cabeça de Abóbora (3h)"], 
+    //     dano3: ["1x Cabeça de Abóbora (3h)"],
+    //     img: "img/bosses/miniaturas/mini_morgana.webp",
+    //     spaw : "img/bosses/maps/where.webp",
+    //     lvl : 199
+    // }
 ];
 
 // Opções de filtros
