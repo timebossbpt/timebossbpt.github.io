@@ -225,6 +225,18 @@ export const BOSSES_DATA = [
         spaw : "img/bosses/maps/coracao-de-fogo.webp",
         lvl : 190
     },
+        {
+        nome: "Comandante Goblin", 
+        local: "AB3/AB1/Arma/Lab/Mina/Lost....,", 
+        horarios: [9 ,15, 21],
+        drop: ["Runas Superiores, Anel Verus, Itens 13x,14x,80E (exceto Armadura e Roupão), Meteorito Idetas, Perg. de Invocação Yagditha, Essência do Aging (S), Essência do Yagditha e Receita de Relíquias."],
+        dano1: [""],
+        dano2: [""],
+        dano3: [""],
+        img: "img/bosses/miniaturas/mini_goblin.webp",
+        spaw : "img/bosses/maps/abismo-do-mar-oposto.webp",
+        lvl : 200
+    },
     // {
     //     nome: "Guardião<br>de Elite<br>(Evento)", 
     //     local: "Mais Frequentado Santuário do Abismo (AB1)<br><b>Outros Lugares:</b> AB3, Arma, Lab, Mina, Lost1, Ice2", 
