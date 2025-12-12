@@ -218,9 +218,9 @@ export const BOSSES_DATA = [
         local: "Coração de Fogo (CF)", 
         horarios: [22],
         drop: ["Itens do mapa, Bracelete da Dama (0,08% de chance), Itens Verthex (0,08% de chance)"],
-        dano1: ["3x Chocolate Branco (28%), 3x Pirulito (28%), 2x Força Ordo (19%) 2x Força Mágica Ordo (19%) ou Pergaminho de Invocação de Boss (Greedy, Espectro do Midranda ou Yagditha) (6%)."],
-        dano2: ["Pergaminho de Invocação de Boss (Greedy, Espectro do Midranda ou Yagditha) (20%), 2x Força Vita (13%), 2x Força Mágica Vita (13%), Buff Especial (3H) (20%), Itens de Ataque level 165 (7%), Cápsula Ígnea (20%), 199.600.125.000 pontos de Experiência (5%) ou Essências do Aging (I), (A) ou (S) (2%)."],
-        dano3: ["Pergaminho de Invocação de Boss (Yagditha, Greedy ou Espectro do Midranda) (20%), Cápsula Ígnea (20%), Essências do Aging (I), (A) ou (S) (15%), Itens de Defesa level 165 (7%), Itens de Ataque level 165 (7%), Caixa Priston (3H) (13%) ou 265.962.910.714 pontos de Experiência (12%)."],
+        dano1: ["3x Sol (45%), 2x Força Vita (3H) (19%), 2x Força Mágica Vita (3H) (19%), 3x Meteorito Idetas (12%) ou Perg. de Invocação de Boss (Greedy, Espectro do Midranda ou Yagditha) (5%)."],
+        dano2: ["Perg. de Invocação de Boss (Greedy, Espectro do Midranda ou Yagditha) (30%), 2x Força Tera (3H) (13%), 2x Força Mágica Tera (3H) (13%), Buff Especial (3H) (21%), Caixa Priston (3H) (10%), Itens do Level 140 (5%), 199.600.125.000 pontos de Experiência (6%) ou Essência do Aging (A, I ou S) (2%)."],
+        dano3: ["Perg. de Invocação de Boss (Greedy, Espectro do Midranda ou Yagditha) (30%), Essência do Aging (S) (15%), Itens de Ataque do Level 140 (6%), Itens de Defesa do Level 140 (6%), 3x Força Tera (3H) (13%), 3x Força Mágica Tera (3H) (13%), Caixa Priston (3H) (8%), Receita de Relíquias (2%) ou 265.962.910.714 pontos de Experiência (5%)."],
         img: "img/bosses/miniaturas/mini_dama.webp",
         spaw : "img/bosses/maps/coracao-de-fogo.webp",
         lvl : 190
