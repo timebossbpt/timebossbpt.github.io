@@ -297,6 +297,18 @@ export const BOSSES_DATA = [
     //     spaw : "img/bosses/maps/where.webp",
     //     lvl : 199
     // }
+    {
+        nome: "Coração Congelado", 
+        local: "(Spawn Aleatório) AB2,Mina,ICE1 e 2,Lago da Ganância", 
+        horarios: [11,17,23],
+        drop: ["Maiores Mapa : Drena e Presa (1D), Super Pedra do Aging, Ouro Mágico Superior, Caixa Priston (1D), Poção Redutora de RES (1D), Poção Redutora de Mana (1D), Força Tera (3H), Força Mágica Tera (3H), Fênix (1D), Poção de XP 100% (1D), Baú de Defesa e Ataque LVL 123, Essência do Aging (I), Baú de Defesa e Ataque LVL 130, Essência do Aging (A), Essência do Aging (S), Presente de Natal ou Floco de Neve"],
+        dano1: [""],
+        dano2: [""], 
+        dano3: [""],
+        img: "img/bosses/miniaturas/mini_coracao_congelado.webp",
+        spaw : "img/bosses/maps/where.webp",
+        lvl : 199
+    }
 ];
 
 // Opções de filtros
